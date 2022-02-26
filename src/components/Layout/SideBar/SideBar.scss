@@ -1,0 +1,159 @@
+.Sidebar{
+    background-color:var(--primaryColor);
+    font-family: var(--primaryFont);
+    width: 300px;
+    height: 100vh;
+    overflow:auto;
+    border-right: 2px solid #FAFAFA;
+}
+
+@media (max-width : 1000px){
+    .Sidebar{
+        visibility: hidden;
+        // display: none;
+    }
+}
+
+.logo{
+    background: #1a1a27;
+    padding-top: 10px;
+    padding-left: 25px;
+    padding-bottom: 18px;
+    // height: 45px;
+    
+}
+
+.logosize{
+    height: 35px;
+    width: 100px;
+}
+.NavigationBox{
+    padding-top: 43px;
+    padding-bottom: 50px;
+}
+
+.Navigation-active{
+    list-style: none;
+    padding-left: 19px !important;
+    margin-top: -14px;
+    display: block;
+    background-color: #FF66341A;
+    // color: #fff !important;
+}
+
+.Navigation-active a{
+    font-family: var(--primaryFont);
+    font-size: 16px;
+    color: var(--thirdColor);
+    text-decoration: none;
+    line-height: 45px;
+    padding-left: 15px;
+    font-weight: 400;
+    margin-left: 12px;
+
+}
+
+.Navigation-active :hover{
+    cursor: pointer;
+   a{
+    text-decoration: none;
+    color: var(--thirdColor);
+   } 
+
+    .sideIcon{
+        // margin-left: 6px;
+        color: var(--thirdColor);
+    }
+
+}
+
+
+.Navigation{
+    list-style: none;
+    padding-left: 19px !important;
+    margin-top: -14px;
+    display: block;
+    
+    
+}
+
+
+.Navigation a{
+    font-family: var(--primaryFont);
+    font-size: 16px;
+    color: var(--menuColor);
+    text-decoration: none;
+    line-height: 45px;
+    padding-left: 15px;
+    font-weight: 400;
+    margin-left: 12px;
+    
+
+}
+
+.Navigation :hover{
+
+    cursor: pointer;
+    
+
+    a{
+        font-family: var(--primaryFont);
+        font-size: 16px;
+        color: var(--thirdColor);
+        text-decoration: none;
+        line-height: 45px;
+        padding-left: 15px;
+        font-weight: 400;
+    }
+    
+
+    .sideIcon{
+        // margin-left: 6px;
+        color: var(--thirdColor);
+    }
+
+    
+}
+
+
+.sideIcon{
+    color: var(--menuColor);
+    margin-left: 6px;
+}
+
+
+.activeIcon{
+    color: var(--thirdColor);
+    margin-left: 6px;
+}
+
+.submenu{
+    margin-left: -10px;
+    margin-top: -10px;
+    // line-height: -190px;
+}
+
+.submenu a{
+    margin-left: -10px;
+}
+
+
+::-webkit-scrollbar-track {
+	// border: 1px solid #FAA831;
+	background-color: transparent;	
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--thirdColor);
+    border-radius: 75px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--thirdColor);
+}
+
