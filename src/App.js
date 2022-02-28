@@ -8,6 +8,8 @@ import Terminal from './pages/Terminals/Terminal';
 import Transactions from './pages/Transactions/Transactions';
 import AddTerminal from './pages/Terminals/AddTerminal';
 import Transaction from './pages/Transactions/Transaction';
+import Disputes from './pages/Disputes/Disputes';
+import Settlement from './pages/Settlement/Settlement';
 
 
 const PrivateRoute = ({ component, ...props }) => {
@@ -50,6 +52,14 @@ function App() {
 
           <Route path='/transactions' exact element={<Transactions />} />
           <Route path='/transaction/:id' exact element={<Transaction />} />
+
+          {/* Disputes */}
+
+          <Route path='/disputes' exact element={<Disputes />} />
+
+          {/* Settlement */}
+
+          <Route path='/settlements' exact element={<Settlement />} />
         </Routes>
       </Suspense>
     // </BrowserRouter>

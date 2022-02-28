@@ -108,6 +108,9 @@ body{
   margin-top: 5px !important;
 }
 
+.mt-15{
+  margin-top: 15px !important;
+}
 
 .mt-20{
   margin-top: 20px !important;
@@ -131,6 +134,10 @@ body{
 
 .mb-30{
   margin-bottom: 30px !important;
+}
+
+.mr-02{
+  margin-right: 2px;
 }
 
 .mr-5{
@@ -165,8 +172,16 @@ body{
   color: #0becc7 !important;
 }
 
+.text-yellow{
+  color: #D4AF37 !important;
+}
+
 .text-grey{
   color: #4F4F4F !important
+}
+
+.text-deep-grey{
+  color: #454545CC !important
 }
 
 .text-darker{
@@ -267,6 +282,15 @@ body{
   font-size: 14px;
   color: var(--fontColor);
   font-family: var(--primaryFont);
+}
+
+.textarea {
+  height: 120px;
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
 }
 
 .single{
@@ -432,6 +456,22 @@ input::-webkit-inner-spin-button {
   background-color: var(--primaryColor);
 }
 
+.bg-red{
+  background-color: #F63002;
+}
+
+.bg-green{
+  background-color: #05B862;
+}
+
+.bg-dark{
+  background-color: #454545;
+}
+
+.bg-orange{
+  background-color: #FF4400;
+}
+
 .active-option{
   background-color: var(--thirdColor);
   padding: 13px 14px 8px;
@@ -462,7 +502,7 @@ td{
   vertical-align: middle;
   padding: 0.7rem 0.7rem !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3) !important;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 30px;
 
 }
@@ -474,7 +514,7 @@ tr:hover{
 .tabactive{
   font-size: 12px;
   font-weight: 500;
-  padding: 2px 10px;
+  padding: 2px 10px 5px;
   text-align: center;
   background: rgba(5, 184, 98, 0.15);
   color: #05B862;
@@ -539,11 +579,24 @@ tr:hover{
 .actionDanger{
   font-size: 12px;
   font-weight: 400;
-  padding: 6px 10px;
+  padding: 5px 10px 8px;
   text-align: center;
   color: #FF4B01;
   background: rgba(255, 102, 52, 0.2);
   border: 1px solid #FF4400;
+  box-sizing: border-box;
+  border-radius: 3px;
+  font-family: var(--primaryFont);
+}
+
+.actionBlue{
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px 10px 8px;
+  text-align: center;
+  color: #064A72;
+  background: rgba(6, 74, 114, 0.2);
+  border: 1px solid #064A72;
   box-sizing: border-box;
   border-radius: 3px;
   font-family: var(--primaryFont);

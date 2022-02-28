@@ -1,11 +1,10 @@
 import React from 'react'
 import { Row, Col, Table, Container } from 'react-bootstrap'
-import Cards from '../../components/Cards/Cards'
 import {FiSearch} from 'react-icons/fi'
 import {IoFilterOutline} from 'react-icons/io5'
 import {BiLinkExternal} from 'react-icons/bi'
-import TransactionCard from '../Cards/TransactionCard'
 import {useNavigate } from 'react-router'
+import AccountCard from '../Cards/AccountCard'
 
 const WayaAgency = () => {
   const navigate = useNavigate()
@@ -41,10 +40,10 @@ const WayaAgency = () => {
         <Container fluid>
             <Row className="mt-40">
                 <Col>
-                    <Cards cardTitle="Test Revenue" value="NGN 700,304.00" color="text-orange" textColor="text-darker"/>
+                    <AccountCard accountNumber="232333432334" value="NGN 2850.75" number="1"/>
                 </Col>
                 <Col>
-                    <Cards cardTitle="Net Revenue" value="NGN 700,304.00" color="text-orange" textColor="text-darker"/>
+                    <AccountCard accountNumber="232333432334" value="NGN 3453.75" number="2" />
                 </Col>
             </Row>
 

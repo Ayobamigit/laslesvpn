@@ -18,13 +18,13 @@ const Transactions = () => {
 
   const renderPages = ()=>{
     switch(tab){
-        case 'transactions':
-            return <WayaPos />;
-        case 'agency':
-            return <WayaAgency />;
-        default:
-            return <WayaPos />
-    }
+      case 'transactions':
+          return <WayaPos />;
+      case 'agency':
+          return <WayaAgency />;
+      default:
+          return <WayaPos />
+  }
 }
 
   const {tab} = state

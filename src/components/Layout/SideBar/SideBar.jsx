@@ -47,12 +47,12 @@ const SideBar = (props) => {
             </ul>
             <ul className={props.title === 'Settlements' ? 'Navigation-active' : 'Navigation'}>
                 <li>
-                    <SideSettlements className={props.title === 'Settlements' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/">Settlements</NavLink>
+                    <SideSettlements className={props.title === 'Settlements' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/settlements">Settlements</NavLink>
                 </li>
             </ul>
             <ul className={props.title === 'Dispute' ? 'Navigation-active' : 'Navigation'}>
                 <li>
-                    <SideDespute className={props.title === 'Dispute' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/">Dispute</NavLink>
+                    <SideDespute className={props.title === 'Dispute' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/disputes">Dispute</NavLink>
                 </li>
             </ul>
             <ul className={props.title === 'Notifications' ? 'Navigation-active' : 'Navigation'}>
