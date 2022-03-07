@@ -10,6 +10,8 @@ import AddTerminal from './pages/Terminals/AddTerminal';
 import Transaction from './pages/Transactions/Transaction';
 import Disputes from './pages/Disputes/Disputes';
 import Settlement from './pages/Settlement/Settlement';
+import ViewSettlement from './pages/Settlement/ViewSettlement';
+import Start from './pages/GettingStarted/Start';
 
 
 const PrivateRoute = ({ component, ...props }) => {
@@ -30,7 +32,7 @@ function App() {
       <Suspense fallback="f">
         <Routes>    
          {/*Checking if logged in  */}
-         <Route path='/' exact render={() => localStorage.getItem('userDetails') ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}/>
+         <Route path='/' exact element={() => localStorage.getItem('userDetails') ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}/>
         
         {/* Login */}
 
@@ -60,6 +62,11 @@ function App() {
           {/* Settlement */}
 
           <Route path='/settlements' exact element={<Settlement />} />
+          <Route path='/settlement/:id' exact element={<ViewSettlement />} />
+
+          {/* Get started */}
+          <Route path='/get-started' exact element={<Start />} />
+
         </Routes>
       </Suspense>
     // </BrowserRouter>

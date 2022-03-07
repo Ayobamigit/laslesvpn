@@ -12,30 +12,38 @@ const WayaAgency = () => {
     <>
     <div className="tableHeaders d-flex justify-content-start align-items-center">
         <div className="d-flex justify-content-between filter-contents align-items-center">
-            <div className="d-flex justify-content-start align-items-center width-50">
-                <div className="d-flex justify-content-center align-items-center ">
+                <div className="d-flex justify-content-start align-items-center width-50">
                     <div className="d-flex justify-content-center align-items-center ">
-                        <IoFilterOutline size={15} style={{marginRight:15}} />
-                        <h4 className="fs-14 text-darker">Filter</h4>
+                        <div className="d-flex justify-content-center align-items-center ">
+                            <IoFilterOutline size={15} style={{marginRight:15}} />
+                            <h4 className="fs-14 text-darker mt-05">Filter</h4>
+                        </div>
                     </div>
-                </div>
-                <div className="d-flex justify-content-center align-items-center filter-search">
-                    <div className="input_Search d-flex justify-content-center align-items-center">
-                        <div className="justify-content-center align-items-center"><FiSearch color="#FF4400" /></div>
-                        <input className="input ml-10" placeholder="search with reference id" />
+                    <div className="d-flex justify-content-center align-items-center filter-search ml-22">
+                        <div className="input_Search d-flex justify-content-center align-items-center">
+                            <div className="justify-content-center align-items-center"><FiSearch color="#FF4400" /></div>
+                            <input className="input ml-10" placeholder="search with reference id" />
+                        </div>
+
+                        {/* <div className="d-flex justify-content-center align-items-center filter-search"> */}
+                            <button className="orange-button ml-10">Search</button>
+                        {/* </div> */}
                     </div>
+
+                    
+                    
                 </div>
-            </div>
-            <div className="d-flex justify-content-start align-items-center ">
-                <div className="d-flex justify-content-center align-items-center ">
-                    <div className="export-button">
-                        <BiLinkExternal color={'#fff'} className="mr-5" />
-                        Export data
+                <div className="d-flex justify-content-start align-items-center ">
+                    <div className="d-flex justify-content-center align-items-center ">
+                        <div className="export-button">
+                            <BiLinkExternal color={'#fff'} className="mr-5" />
+                            Export data
+                        </div>
                     </div>
+
                 </div>
-            </div>
-            </div>
         </div>
+    </div>
 
         <Container fluid>
             <Row className="mt-40">

@@ -10,16 +10,31 @@ import { ReactComponent as SideSubmit } from "../../../assets/icons/side_submit.
 import { ReactComponent as SideSupport } from "../../../assets/icons/side_support.svg";
 import { ReactComponent as SideTerminals } from "../../../assets/icons/side_terminals.svg";
 import { ReactComponent as SideTransactions } from "../../../assets/icons/side_transactions.svg";
+import { ReactComponent as SideWayaBank } from "../../../assets/icons/side_wayabank.svg";
+import { ReactComponent as SideWayaGram } from "../../../assets/icons/side_wayagram.svg";
+import { ReactComponent as SideWayaWeb } from "../../../assets/icons/side_web.svg";
+import { ReactComponent as Logout } from "../../../assets/icons/logout.svg";
+import { ReactComponent as Logo } from "../../../assets/icons/logo.svg";
+import { ReactComponent as Copy } from "../../../assets/icons/copy.svg";
 import {NavLink} from 'react-router-dom';
+import Divider from '../../Divider/Divider';
 
 
 const SideBar = (props) => {
   return (
     <div className="Sidebar">
+        <div className="side-padding">
+            <div className="text-center side-logo">
+                <Logo />
+                <h4 className="fs-14 text-darker fw-700 mt-10">Business Name LTD</h4>
+                <h4 className="fs-12 text-semi-dark">Merchant ID: 2354546 <Copy /></h4>
+            </div>
+        </div>
+        
         <div className="NavigationBox">
-            <ul className={props.title === 'Dashboard' ? 'Navigation-active' : 'Navigation'}>
+            <ul className={props.title === 'Get Started' ? 'Navigation-active' : 'Navigation'}>
                 <li>
-                    <SideStarted className={props.title === 'Dashboard' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/">Getting Started</NavLink>
+                    <SideStarted className={props.title === 'Get Started' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/get-started">Getting Started</NavLink>
                 </li>
             </ul>
 
@@ -31,7 +46,7 @@ const SideBar = (props) => {
 
             <ul className={props.title === 'Overview' ? 'Navigation-active' : 'Navigation'}>
                 <li>
-                    <SideOverview className={props.title === 'Overview' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/">Overview</NavLink>
+                    <SideOverview className={props.title === 'Overview' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/dashboard">Overview</NavLink>
                 </li>
             </ul>
 
@@ -78,6 +93,32 @@ const SideBar = (props) => {
 
         </div>
 
+        <Divider />
+
+        <div className="NavigationBox">
+            <ul className='Navigation'>
+                <li>
+                    <SideWayaBank  className='sideIcon' size={20} /><NavLink to ="/">Wayabank</NavLink>
+                </li>
+            </ul>
+            <ul className='Navigation'>
+                <li>
+                    <SideWayaGram className='sideIcon' size={20} /><NavLink to ="/">Wayagram</NavLink>
+                </li>
+            </ul>
+            <ul className='Navigation'>
+                <li>
+                    <SideWayaWeb className='sideIcon' size={20} /><NavLink to ="/">Wayapay</NavLink>
+                </li>
+            </ul>
+
+            <ul className='Navigation'>
+                <li>
+                    <Logout className='sideIcon' size={20} /><NavLink to ="/">Log Out</NavLink>
+                </li>
+            </ul>
+
+        </div>
     </div>
   )
 }

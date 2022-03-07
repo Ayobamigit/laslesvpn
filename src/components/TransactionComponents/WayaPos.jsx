@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Row, Col, Table, Container } from 'react-bootstrap'
 import Cards from '../../components/Cards/Cards'
 import {FiSearch} from 'react-icons/fi'
@@ -6,35 +6,92 @@ import {IoFilterOutline} from 'react-icons/io5'
 import {BiLinkExternal} from 'react-icons/bi'
 import TransactionCard from '../Cards/TransactionCard'
 import {useNavigate } from 'react-router'
+import axios from 'axios'
+import { toast, Slide } from "react-toastify"
+import { allTransactions } from '../../plugins/urls'
+import NoResultFound from '../NoResultFound/NoResultFound'
+import moment from "moment"
+
 
 const WayaPos = () => {
     const navigate = useNavigate()
+
+    const [state, setState] = useState({
+        transactions:[],
+        from:'',
+        to:'',
+        pageNo:0,
+        pageSize: 20,
+    })
+
+    const {from, to, pageNo, pageSize, transactions} = state;
+
+    useEffect(()=>{
+        getTransactions();
+    }, [])
+
+    const getTransactions = () =>{
+        let reqBody = {
+            from,
+            to,
+            pageNo,
+            pageSize
+        }
+
+        axios({
+            method: 'post',
+            url: `${allTransactions}`,
+            data: reqBody
+        }).then(res=>{
+            if(res.data.respCode === '00'){
+                setState(state=>({
+                    ...state,
+                    transactions: res.data.respBody
+                }))
+            }
+        })
+        .catch(err=>{
+            toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+            })
+        })
+    }
   return (
     <>
-    <div className="tableHeaders d-flex justify-content-start align-items-center">
-        <div className="d-flex justify-content-between filter-contents align-items-center">
-            <div className="d-flex justify-content-start align-items-center width-50">
-                <div className="d-flex justify-content-center align-items-center ">
+        <div className="tableHeaders d-flex justify-content-start align-items-center">
+            <div className="d-flex justify-content-between filter-contents align-items-center">
+                <div className="d-flex justify-content-start align-items-center width-50">
                     <div className="d-flex justify-content-center align-items-center ">
-                        <IoFilterOutline size={15} style={{marginRight:15}} />
-                        <h4 className="fs-14 text-darker">Filter</h4>
+                        <div className="d-flex justify-content-center align-items-center ">
+                            <IoFilterOutline size={15} style={{marginRight:15}} />
+                            <h4 className="fs-14 text-darker mt-05">Filter</h4>
+                        </div>
                     </div>
-                </div>
-                <div className="d-flex justify-content-center align-items-center filter-search">
-                    <div className="input_Search d-flex justify-content-center align-items-center">
-                        <div className="justify-content-center align-items-center"><FiSearch color="#FF4400" /></div>
-                        <input className="input ml-10" placeholder="search with reference id" />
+                    <div className="d-flex justify-content-center align-items-center filter-search ml-22">
+                        <div className="input_Search d-flex justify-content-center align-items-center">
+                            <div className="justify-content-center align-items-center"><FiSearch color="#FF4400" /></div>
+                            <input className="input ml-10" placeholder="search with reference id" />
+                        </div>
+
+                        {/* <div className="d-flex justify-content-center align-items-center filter-search"> */}
+                            <button className="orange-button ml-10">Search</button>
+                        {/* </div> */}
                     </div>
+
+                    
+                    
                 </div>
-            </div>
-            <div className="d-flex justify-content-start align-items-center ">
-                <div className="d-flex justify-content-center align-items-center ">
-                    <div className="export-button">
-                        <BiLinkExternal color={'#fff'} className="mr-5" />
-                        Export data
+                <div className="d-flex justify-content-start align-items-center ">
+                    <div className="d-flex justify-content-center align-items-center ">
+                        <div className="export-button">
+                            <BiLinkExternal color={'#fff'} className="mr-5" />
+                            Export data
+                        </div>
                     </div>
+
                 </div>
-            </div>
             </div>
         </div>
 
@@ -67,6 +124,48 @@ const WayaPos = () => {
                     </thead>
 
                     <tbody>
+                    {
+                        transactions?
+                            transactions.length === 0 ?
+                            <NoResultFound />
+                            :
+                            transactions.map((transaction, i)=>{
+                                const{de37, transactionCategory, terminalType, paymentMethod, de7, paymentStatus, de4} = transaction;
+                                const statusClass = () =>{
+                                    if(paymentStatus){
+                                        if(paymentStatus.toLowerCase() === 'successful'){
+                                            return 'tabactive'
+                                        }
+                                        else if(paymentStatus.toLowerCase() === 'refunded'){
+                                            return 'tabpending'
+                                        } 
+                                        else if(paymentStatus.toLowerCase() === 'abandoned'){
+                                            return 'tabdamaged'
+                                        }
+                                        else{
+                                            return 'tabdanger'
+                                        }
+                                    }
+                                }
+
+                                return(
+                                    <tr key={i}>
+                                    <td>{i+1}</td>
+                                    <td>{de37}</td>
+                                    <td>{transactionCategory}</td>
+                                    <td>{terminalType}</td>
+                                    <td>{paymentMethod}</td>
+                                    <td>{de4}</td>
+                                    <td>{terminalType}</td>
+                                    <td>{de7 ? moment(new Date(de7)).format('D/MM/YYYY') : 'N/A'}</td>
+                                    <td><span className={`${statusClass()}`}>{paymentStatus}</span></td>
+                                    <td><span className="tabtransparent" onClick={()=>{navigate('/transaction/1')}}>View More</span></td>
+                                </tr>
+                                )
+                            })
+                        :
+                        <NoResultFound />
+                    }
                         <tr>
                             <td>44aa22f4-fc64-5b</td>
                             <td>Cashout</td>

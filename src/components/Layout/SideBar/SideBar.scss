@@ -23,13 +23,24 @@
     
 }
 
+.side-logo{
+    background: #FAFAFA;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 17px;
+    padding: 7px 20px;
+}
+
+.side-padding{
+    padding: 10px 20px;
+}
+
 .logosize{
     height: 35px;
     width: 100px;
 }
 .NavigationBox{
-    padding-top: 43px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
 .Navigation-active{
@@ -144,7 +155,7 @@
 }
 
 ::-webkit-scrollbar {
-	width: 4px;
+	width: 1px;
     height: 0px;
 }
 

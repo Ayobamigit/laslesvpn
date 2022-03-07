@@ -5,6 +5,8 @@ import Divider from '../Divider/Divider'
 import { Row, Col } from 'react-bootstrap'
 
 const Address = () => {
+  const {user} = JSON.parse(localStorage.getItem('userDetails'));
+  console.log(user)
   return (
     <div className="address mt-20">
         <h4 className="text-grey fs-20 fw-700">Delivery Address</h4>
@@ -12,8 +14,8 @@ const Address = () => {
             <div className="d-flex justify-content-start">
                 <Map className="mt-02" />
                 <div className="ml-30">
-                    <h4 className="text-darker fs-16 fw-700">5, Ogudu Road, Ojota Lagos</h4>
-                    <h4 className="text-grey fs-16 fw-400">+234 8123938493</h4>
+                    <h4 className="text-darker fs-16 fw-700">{user ? user.address : '5, Ogudu Road, Ojota Lagos'}</h4>
+                    <h4 className="text-grey fs-16 fw-400">{user ? user.phoneNumber: '+234 8123938493'}</h4>
                 </div>
             </div>
 

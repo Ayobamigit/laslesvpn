@@ -1,16 +1,14 @@
 import React from 'react'
 import './select.scss'
-import { ReactComponent as Nexgo } from '../../assets/img/nexgo.svg'
 import { ReactComponent as Plus } from '../../assets/icons/plus.svg'
 import { ReactComponent as Minus } from '../../assets/icons/minus.svg'
-import { ReactComponent as Topwise } from '../../assets/img/topwise.svg'
 
-const SlideContent = () => {
+const SlideContent = (props) => {
   return (
     <div className="slide-item">
         <div className="d-flex justify-content-between">
             <div className="product-bg">
-                <Nexgo />
+               <img src={props.img} alt="" />
             </div>
             <div className="mt-35">
                 <h4 className="text-white fs-25 m-0">Nexgo G3</h4>

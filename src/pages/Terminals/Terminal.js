@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Row, Col, Table, Container } from 'react-bootstrap'
 import Cards from '../../components/Cards/Cards'
 import Layout from '../../components/Layout/Layout'
@@ -8,9 +8,56 @@ import {IoFilterOutline} from 'react-icons/io5'
 import {BiLinkExternal} from 'react-icons/bi'
 import {VscAdd} from 'react-icons/vsc'
 import { useNavigate } from 'react-router'
+import axios from '../../plugins/axios'
+import { toast, Slide } from "react-toastify"
+import { allTerminals } from '../../plugins/urls'
+import NoResultFound from '../../components/NoResultFound/NoResultFound'
+import moment from "moment"
 
 const Terminal = () => {
     const navigate = useNavigate()
+    
+    const [state, setState] = useState({
+        terminalList: [],
+        from:'',
+        to:'',
+        pageNo:0,
+        pageSize: 20,
+    })
+
+    const {from, to, pageNo, pageSize, terminalList} = state;
+    useEffect(()=>{
+        getTerminals()
+    },[])
+
+    const getTerminals = ()=>{
+        let reqBody = {
+            from,
+            to,
+            pageNo,
+            pageSize
+        }
+
+        axios({
+            method: 'post',
+            url: `${allTerminals}`,
+            data: reqBody
+        }).then(res=>{
+            if(res.data.respCode === '00'){
+                setState(state=>({
+                    ...state,
+                    terminalList: res.data.respBody
+                }))
+            }
+        })
+        .catch(err=>{
+        toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+          });
+    })
+    }
   return (
     <Layout title="Terminals">
         <div className="tableHeaders d-flex justify-content-start align-items-center">
@@ -22,11 +69,15 @@ const Terminal = () => {
                             <h4 className="fs-14 text-darker">Filter</h4>
                         </div>
                     </div>
-                    <div className="d-flex justify-content-center align-items-center filter-search">
+                    <div className="d-flex justify-content-center align-items-center filter-search ml-22">
                         <div className="input_Search d-flex justify-content-center align-items-center">
                             <div className="justify-content-center align-items-center"><FiSearch color="#FF4400" /></div>
-                            <input className="input ml-10" placeholder="search with terminal id" />
+                            <input className="input ml-10" placeholder="search with reference id" />
                         </div>
+
+                        {/* <div className="d-flex justify-content-center align-items-center filter-search"> */}
+                            <button className="orange-button ml-10">Search</button>
+                        {/* </div> */}
                     </div>
                 </div>
                 <div className="d-flex justify-content-start align-items-center ">
@@ -72,12 +123,54 @@ const Terminal = () => {
                             <th>amount paid</th>
                             <th>amount left</th>
                             <th>status</th>
-                            <th>issued data</th>
+                            <th>issued date</th>
                             <th>action</th>
                         </tr>
                     </thead>
 
                     <tbody>
+
+                    {
+                        terminalList?
+                            terminalList.length === 0 ?
+                            <NoResultFound />
+                            :
+                            terminalList.map((terminal, i)=>{
+                                const{terminalId, terminalName, terminalAmount, amountPaid, amountLeft, dateCreated, status} = terminal;
+                                const statusClass = () =>{
+                                    if(status){
+                                        if(status.toLowerCase() === 'activated'){
+                                            return 'tabactive'
+                                        }
+                                        else if(status.toLowerCase() === 'deactivated'){
+                                            return 'tabdanger'
+                                        } 
+                                        else if(status.toLowerCase() === 'faulty'){
+                                            return 'tabdamaged'
+                                        }
+                                        else{
+                                            return 'tabpending'
+                                        }
+                                    }
+                                }
+
+                                return(
+                                    <tr key={i}>
+                                    <td>{i+1}</td>
+                                    <td>{terminalId}</td>
+                                    <td>{terminalName}</td>
+                                    <td>{terminalAmount}</td>
+                                    <td>{amountPaid}</td>
+                                    <td>{amountLeft}</td>
+                                    <td><span className={`${statusClass()}`}>{status}</span></td>
+                                    <td>{ dateCreated ? moment(new Date(dateCreated)).format('D/MM/YYYY') : 'N/A'}</td>
+                                    <td  onClick={() => {navigate(`/terminals/${terminalId}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td>
+                                </tr>
+                                )
+                            })
+                        :
+                        <NoResultFound />
+                    } 
                         <tr>
                             <td>12346546785</td>
                             <td>Top Wise</td>

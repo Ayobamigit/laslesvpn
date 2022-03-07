@@ -1,3 +1,4 @@
+import axios from '../../plugins/axios'
 import React, { createContext, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import Divider from '../../components/Divider/Divider'
@@ -5,16 +6,24 @@ import Layout from '../../components/Layout/Layout'
 import Payment from '../../components/TerminalComponents/Payment'
 import SubTotal from '../../components/TerminalComponents/SubTotal'
 import TerminalAddress from '../../components/TerminalComponents/TerminalAddress'
+import { requestTerminal } from '../../plugins/urls'
 
 export const AddTerminalContext = createContext();
 
 const AddTerminal = () => {
     const [state, setState] = useState({
         step: 'select',
-        buttonValue:'Continue'
+        buttonValue:'Continue',
+        accountToDebit: '',
+        deliveryAddress: '',
+        fullOrPartPayment:'Full',
+        partPaymentAmount: '',
+        subTotal: '0',
+        terminalTypes: [],
+        loading: false
     })
 
-    const {step} = state;
+    const {step, accountToDebit, deliveryAddress, fullOrPartPayment, partPaymentAmount, subTotal, terminalTypes} = state;
 
     const onChangeStep = (page, value)=>{
         setState(state=>({
@@ -24,8 +33,59 @@ const AddTerminal = () => {
         }))
     }
 
+    const onAddItem = (data, action) => {
+        const value = data ? data.name : ''
+
+        //Check if the terminal type already exists
+        const check = terminalTypes.find((terminal) => {
+            return terminal.name === value
+        })
+        // debugger;
+        if(check){
+            if(terminalTypes.length){
+                // const exists = rolePermissions.find((permission, i) => {
+                //     if(permission.name === value){
+                //         itemToBeDeleted = i;
+                //         return permission;
+                //     }
+                // })
+                // if(exists){
+                //     rolePermissions.splice(itemToBeDeleted, 1)
+                // } else {
+                //     rolePermissions.push(check)
+                // }
+            } 
+            else {
+                terminalTypes.push(check)
+            }
+        }
+    }
+
     const makePayment = () =>{
-        console.log('clicked')
+        setState(state=>({
+            ...state,
+            loading: true
+        }))
+        let reqBody = {
+            accountToDebit,
+            deliveryAddress, 
+            fullOrPartPayment,
+            partPaymentAmount,
+            subTotal, 
+            terminalTypes
+        }
+
+        axios({
+            method: 'post',
+            url: `${requestTerminal}`,
+            data: reqBody
+        }).then(res=>{
+            setState(state=>({
+                ...state,
+                loading: false
+            }))
+            console.log(res)
+        })
     }
 
     const renderPages = ()=>{

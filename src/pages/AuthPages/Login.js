@@ -49,10 +49,10 @@ const Login = () => {
             }))
             if(res.data.status === true){
                 
-                const {token, user} = res.data.data;
+                const {authToken, user} = res.data.data;
 
                 localStorage.setItem('userDetails', JSON.stringify({
-                    authToken: token,
+                    authToken,
                     user                      
                 }))
                 navigate('/dashboard')

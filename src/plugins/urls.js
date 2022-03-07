@@ -5,6 +5,8 @@ const baseUrl = () => {
 const secondaryUrl = () => {
     return {
         auth: 'auth-service/api/v1',
+        terminal: 'terminal-service/api/v1',
+        transactions: 'transaction-service/api/v1'
     }
 }
 
@@ -27,3 +29,14 @@ export const resend = `${baseUrl()}/${secondaryUrl().auth}/auth/resend-otp/signu
 
 //business types 
 export const businessTypesList = `${baseUrl()}/${secondaryUrl().auth}/business/type/find/all`;
+
+
+//Terminal Services
+export const requestTerminal = `${baseUrl()}/${secondaryUrl().terminal}/terminals/request`;
+
+export const allTerminals = `${baseUrl()}/${secondaryUrl().terminal}/terminals/viewallterminalbyuser`;
+
+
+//Transaction Services
+
+export const allTransactions = `${baseUrl()}/${secondaryUrl().transactions}/transactions/viewalltransasctions`;
