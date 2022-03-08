@@ -12,6 +12,7 @@ import Disputes from './pages/Disputes/Disputes';
 import Settlement from './pages/Settlement/Settlement';
 import ViewSettlement from './pages/Settlement/ViewSettlement';
 import Start from './pages/GettingStarted/Start';
+import TerminalRequest from './pages/Terminals/TerminalRequest';
 
 
 const PrivateRoute = ({ component, ...props }) => {
@@ -48,6 +49,7 @@ function App() {
           {/* Terminal Management */}
 
           <Route path='/terminals' exact element={<Terminal />} />
+          <Route path='/terminal-requests' exact element={<TerminalRequest />} />
           <Route path='/add-terminal' exact element={<AddTerminal />} />
 
           {/* Transactions */}

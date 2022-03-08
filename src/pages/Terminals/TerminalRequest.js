@@ -14,7 +14,7 @@ import { allTerminals } from '../../plugins/urls'
 import NoResultFound from '../../components/NoResultFound/NoResultFound'
 import moment from "moment"
 
-const Terminal = () => {
+const TerminalRequest = () => {
     const {user} = JSON.parse(localStorage.getItem('userDetails'));
     const navigate = useNavigate()
     
@@ -93,36 +93,11 @@ const Terminal = () => {
                             Export data
                         </div>
                     </div>
-                    <div className="d-flex justify-content-center align-items-center">
-                        <div className="request-button" onClick={()=>{navigate('/add-terminal')}}>
-                            <VscAdd color={'#fff'} className="mr-5" />
-                            Request new terminal
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-center align-items-center">
-                        <div className="request-button" onClick={()=>{navigate('/terminal-requests')}}>
-                            View terminal requests
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <Container fluid>
-            <Row className="mt-40">
-                <Col>
-                    <Cards cardTitle="Total Issued Terminal" value="3" color="text-darker" textColor="text-darker"/>
-                </Col>
-                <Col>
-                    <Cards cardTitle="Total Active Terminals" value="1" color="text-sharp-green" textColor="text-sharp-green"/>
-                </Col>
-                <Col>
-                    <Cards cardTitle="Total Damaged Terminals" value="1" color="text-semi-dark" textColor="text-semi-dark"/>
-                </Col>
-                <Col>
-                    <Cards cardTitle="Total Suspended Terminals" value="1" color="text-red"/>
-                </Col>
-            </Row>
 
             <div className="data-table mt-40">
                 <Table responsive borderless className="bg-inherit">
@@ -233,4 +208,4 @@ const Terminal = () => {
   )
 }
 
-export default Terminal
+export default TerminalRequest

@@ -32,11 +32,15 @@ export const businessTypesList = `${baseUrl()}/${secondaryUrl().auth}/business/t
 
 
 //Terminal Services
-export const requestTerminal = `${baseUrl()}/${secondaryUrl().terminal}/terminals/request`;
+export const requestTerminal = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/request`;
 
-export const allTerminals = `${baseUrl()}/${secondaryUrl().terminal}/terminals/viewallterminalbyuser`;
+export const allTerminals = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/viewallterminalbyuser`;
+
+export const allterminalTypes = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/getterminaltypes`;
 
 
 //Transaction Services
 
-export const allTransactions = `${baseUrl()}/${secondaryUrl().transactions}/transactions/viewalltransasctions`;
+export const allTransactions = `https://8ec8-41-58-227-137.ngrok.io/api/v1/transactions/viewalltransactionsbyuser`;
+
+export const viewTransaction = `https://8ec8-41-58-227-137.ngrok.io/api/v1/transactions/viewonetransactionsbyuser`;

@@ -6,7 +6,7 @@ import {IoFilterOutline} from 'react-icons/io5'
 import {BiLinkExternal} from 'react-icons/bi'
 import TransactionCard from '../Cards/TransactionCard'
 import {useNavigate } from 'react-router'
-import axios from 'axios'
+import axios from '../../plugins/axios'
 import { toast, Slide } from "react-toastify"
 import { allTransactions } from '../../plugins/urls'
 import NoResultFound from '../NoResultFound/NoResultFound'
@@ -14,6 +14,7 @@ import moment from "moment"
 
 
 const WayaPos = () => {
+    const {user} = JSON.parse(localStorage.getItem('userDetails'));
     const navigate = useNavigate()
 
     const [state, setState] = useState({
@@ -35,7 +36,12 @@ const WayaPos = () => {
             from,
             to,
             pageNo,
-            pageSize
+            pageSize,
+            paramList:[
+                {
+                 userid: user? user.id : ''
+                }
+            ]
         }
 
         axios({
@@ -43,10 +49,10 @@ const WayaPos = () => {
             url: `${allTransactions}`,
             data: reqBody
         }).then(res=>{
-            if(res.data.respCode === '00'){
+            if(res.data.respCode === 0){
                 setState(state=>({
                     ...state,
-                    transactions: res.data.respBody
+                    transactions: res.data.respBody.content
                 }))
             }
         })
@@ -130,7 +136,7 @@ const WayaPos = () => {
                             <NoResultFound />
                             :
                             transactions.map((transaction, i)=>{
-                                const{de37, transactionCategory, terminalType, paymentMethod, de7, paymentStatus, de4} = transaction;
+                                const{de37, transactionCategory, terminalType, paymentMethod, de7, paymentStatus, de4, id} = transaction;
                                 const statusClass = () =>{
                                     if(paymentStatus){
                                         if(paymentStatus.toLowerCase() === 'successful'){
@@ -150,23 +156,21 @@ const WayaPos = () => {
 
                                 return(
                                     <tr key={i}>
-                                    <td>{i+1}</td>
                                     <td>{de37}</td>
                                     <td>{transactionCategory}</td>
                                     <td>{terminalType}</td>
                                     <td>{paymentMethod}</td>
                                     <td>{de4}</td>
-                                    <td>{terminalType}</td>
                                     <td>{de7 ? moment(new Date(de7)).format('D/MM/YYYY') : 'N/A'}</td>
                                     <td><span className={`${statusClass()}`}>{paymentStatus}</span></td>
-                                    <td><span className="tabtransparent" onClick={()=>{navigate('/transaction/1')}}>View More</span></td>
+                                    <td><span className="tabtransparent" onClick={()=>{navigate(`/transaction/${id}`)}}>View More</span></td>
                                 </tr>
                                 )
                             })
                         :
                         <NoResultFound />
                     }
-                        <tr>
+                        {/* <tr>
                             <td>44aa22f4-fc64-5b</td>
                             <td>Cashout</td>
                             <td>Nexgo</td>
@@ -222,7 +226,7 @@ const WayaPos = () => {
                             <td><span className="tabpending">Refunded</span></td>
                             <td><span className="tabtransparent">View More</span></td>
 
-                        </tr>
+                        </tr> */}
                     </tbody>
                 </Table>
             </div>

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import { AddTerminalContext } from '../../pages/Terminals/AddTerminal'
+import SubmitLoader from '../SubmitLoader/SubmitLoader'
 import './select.scss'
 
 const SubTotal = () => {
-  const {state:{step, buttonValue, subTotal}, onChangeStep, makePayment} = useContext(AddTerminalContext)
+  const {state:{step, buttonValue, subTotal, loading}, onChangeStep, makePayment} = useContext(AddTerminalContext)
   return (
     <div className="address font-default mt-20">
         <div className="d-flex justify-content-between">
@@ -19,7 +20,12 @@ const SubTotal = () => {
             </button>
             :
             <button className="orange-button extra-padding"  onClick={makePayment}>
-                {buttonValue}
+              {
+                loading ? 
+                <SubmitLoader />
+                :
+                buttonValue
+              }
             </button>
           }
         </div>

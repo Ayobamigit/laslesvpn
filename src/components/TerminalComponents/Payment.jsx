@@ -5,7 +5,7 @@ import {ReactComponent as Back} from '../../assets/icons/back.svg'
 import { AddTerminalContext } from '../../pages/Terminals/AddTerminal'
 
 const Payment = () => {
-    const {onChangeStep} = useContext(AddTerminalContext)
+    const {state:{fullOrPartPayment, accountToDebit, subTotal}, onChangeStep, onSelectPayment} = useContext(AddTerminalContext)
   return (
     <div className="font-default address">
         <h4 className="text-darker fs-14 fw-700 cursor-pointer" onClick={()=>onChangeStep('select', 'Continue')}>
@@ -21,7 +21,7 @@ const Payment = () => {
         
         <Row className="mt-40">
             <Col>
-                <div className="bg-white payment-option d-flex justify-content-between ">
+                <div className={` ${fullOrPartPayment === 'FULL' ? 'border-green' : null} bg-white payment-option d-flex justify-content-between cursor-pointer`} onClick= {()=>onSelectPayment('FULL')}>
                     <div className="d-flex justify-content-between "> 
                         <div className="currency-green"> ₦ </div>
                         <div className="mt-02 ml-22">
@@ -35,7 +35,7 @@ const Payment = () => {
             </Col>
 
             <Col>
-                <div className="bg-white payment-option d-flex justify-content-between ">
+            <div className={` ${fullOrPartPayment === 'PART' ? 'border-green' : null} bg-white payment-option d-flex justify-content-between cursor-pointer`} onClick= {()=>onSelectPayment('PART')}>
 
                     <div className="d-flex justify-content-between "> 
                         <div className="currency-orange"> ₦ </div>
@@ -62,12 +62,12 @@ const Payment = () => {
                         <div className="currency-grey"> <Home /> </div>
                         <div className="mt-02 ml-22">
                             <h4 className="text-darker fs-14 fw-700">Richard Daniel</h4>
-                            <h4 className="text-grey fs-12">1243353213</h4>
+                            <h4 className="text-grey fs-12">{accountToDebit}</h4>
                         </div>
                     </div>
 
                     <div>
-                        <h4 className="text-darker fs-16 fw-900 mt-02"><span className="fw-100">₦</span> 235,645.00</h4>
+                        <h4 className="text-darker fs-16 fw-900 mt-02"><span className="fw-100">₦</span> {subTotal}</h4>
                     </div>
                 </div>
 
