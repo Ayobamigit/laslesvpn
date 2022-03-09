@@ -334,6 +334,13 @@ body{
 
 }
 
+.container-disabled {
+  background-color: #F3F6F9;
+  opacity: 1;
+  // border-color: #F3F6F9;
+
+}
+
 .textarea {
   height: 120px;
 }
@@ -728,10 +735,10 @@ tr:hover{
 }
 
 .checkbox.checkbox-primary > input:checked ~ span {
-  background-color: #3699FF;
+  background-color: var(--thirdColor);
 }
 .checkbox > input:checked ~ span {
-  background-color: #3699FF;
+  background-color: var(--thirdColor);
 }
 .checkbox > input:checked ~ span {
   -webkit-transition: all 0.3s ease;

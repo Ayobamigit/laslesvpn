@@ -65,7 +65,7 @@ function App() {
           {/* Settlement */}
 
           <Route path='/merchants' exact element={<PrivateRoute><Merchants /> </PrivateRoute>} />
-          <Route path='/merchants/:id' element={<PrivateRoute><Merchant /> </PrivateRoute>} />
+          <Route path='/merchant/:id' element={<PrivateRoute><Merchant /> </PrivateRoute>} />
           <Route path='/add-merchant' element={<PrivateRoute><AddMerchant /> </PrivateRoute>} />
 
           {/* Get started */}

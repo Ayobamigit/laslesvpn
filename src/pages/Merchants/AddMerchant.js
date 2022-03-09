@@ -137,7 +137,6 @@ const AddMerchant = () => {
         const check = unAssigned.find((terminal) => {
             return terminal.id === value
         })
-        debugger;
         if(check){
             if(terminalIds.length){
                 const exists = terminalIds.find((terminal, i) => {
@@ -292,7 +291,8 @@ const AddMerchant = () => {
                                         </div>
                                     </div>
                                 </Col>
-
+                            </Row>
+                            <Row>
                                 <Col>
                                     <div className="input-div">
                                         <label className="text-darker fs-14">Email Address</label>
@@ -307,8 +307,7 @@ const AddMerchant = () => {
                                         </div>
                                     </div>
                                 </Col>
-                            </Row>
-                            <Row>
+                            
                                 <Col>
                                     <div className="input-div">
                                         <label className="text-darker fs-14">Phone number</label>
@@ -323,6 +322,8 @@ const AddMerchant = () => {
                                         </div>
                                     </div>
                                 </Col>
+                            </Row>
+                            <Row>
                                 <Col>
                                     <div className="input-div">
                                         <label className="text-darker fs-14">Gender</label>
@@ -377,7 +378,8 @@ const AddMerchant = () => {
                                         </div>
                                     </div>  
                                 </Col>
-                                
+                            </Row>
+                            <Row>    
 
                                 <Col>
                                     <div className="input-div">
@@ -408,6 +410,7 @@ const AddMerchant = () => {
                                         </div>
                                     </div>
                                 </Col>
+                           
 
                                 <Col>
                                     <div className="input-div">
@@ -439,8 +442,6 @@ const AddMerchant = () => {
                                     </div>
                                 </Col>
                             </Row>
-
-
                             <Row>
                                 <Col>
                                     <div className="input-div">
@@ -456,6 +457,7 @@ const AddMerchant = () => {
                                         </div>
                                     </div>
                                 </Col>
+                             
                                 <Col>
                                     <div className="input-div">
                                         <label className="text-darker fs-14">Merchant Category Code</label>
@@ -471,6 +473,10 @@ const AddMerchant = () => {
                                     </div>
                                 </Col>
 
+                            </Row>
+
+
+                            <Row>
                                 <Col>
                                     <div className="input-div">
                                         <label className="text-darker fs-14">Merchant Name and Location</label>
@@ -485,9 +491,7 @@ const AddMerchant = () => {
                                         </div>
                                     </div>  
                                 </Col>
-                            </Row>
-
-                            <Row>
+                            
                                 <Col>
                                     <div className="input-div">
                                         <label className="text-darker fs-14">Country Code</label>
@@ -502,6 +506,9 @@ const AddMerchant = () => {
                                         </div>
                                     </div>
                                 </Col>
+                            </Row>
+
+                            <Row>
                                 <Col>
                                     <div className="input-div">
                                         <label className="text-darker fs-14">Currency Code</label>

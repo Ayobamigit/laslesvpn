@@ -130,7 +130,7 @@ const Merchants = () => {
                             <NoResultFound />
                             :
                             merchantList.map((merchant, i)=>{
-                                const{merchantId, firstname, surname, email, phoneNumber, dob} = merchant;
+                                const{id, merchantId, firstname, surname, email, phoneNumber, dob} = merchant;
                                 // const statusClass = () =>{
                                 //     if(status){
                                 //         if(status.toLowerCase() === 'activated'){
@@ -158,7 +158,7 @@ const Merchants = () => {
                                     <td>{phoneNumber}</td>
                                     {/* <td>{amountLeft}</td>
                                     <td><span className={`${statusClass()}`}>{status}</span></td> */}
-                                    <td  onClick={() => {navigate(`/merchant/${merchantId}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td>
+                                    <td  onClick={() => {navigate(`/merchant/${id}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td>
                                 </tr>
                                 )
                             })

@@ -6,7 +6,8 @@ const secondaryUrl = () => {
     return {
         auth: 'auth-service/api/v1',
         terminal: 'terminal-service/api/v1',
-        transactions: 'transaction-service/api/v1'
+        transactions: 'transaction-service/api/v1',
+        merchant: 'merchant-service/api/v1'
     }
 }
 
@@ -32,26 +33,30 @@ export const businessTypesList = `${baseUrl()}/${secondaryUrl().auth}/business/t
 
 
 //Terminal Services
-export const requestTerminal = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/request`;
+export const requestTerminal = `${baseUrl()}/${secondaryUrl().terminal}/terminals/request`;
 
-export const allTerminals = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/viewallterminalbyuser`;
+export const allTerminals = `${baseUrl()}/${secondaryUrl().terminal}/terminals/viewallterminalbyuser`;
 
-export const allterminalTypes = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/getterminaltypes`;
+export const allterminalTypes = `${baseUrl()}/${secondaryUrl().terminal}/terminals/getterminaltypes`;
 
-export const getunassignedterminals = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/getunassignedterminals`;
 
 
 //Merchant Services
-export const allMerchants = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/viewallmerchants`;
+export const allMerchants = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/viewallmerchants`;
 
-export const registerMerchant = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/registermerchant`;
+export const getunassignedterminals = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/getunassignedterminals`;
 
-export const mapTerminal = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/assignterminal`;
+export const registerMerchant = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/registermerchant`;
 
+export const updateMerchant = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/updatemerchant`;
 
-// export const allTerminals = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/viewallterminalbyuser`;
+export const mapTerminal = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/assignterminal`;
 
-// export const allterminalTypes = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/getterminaltypes`;
+export const unMapTerminal = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/unassignterminal`;
+
+export const viewMerchant = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/viewmerchantbyid`;
+
+export const viewMerchantTerminals = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/getmerchantterminals`;
 
 
 //Transaction Services
