@@ -15,6 +15,7 @@ import Start from './pages/GettingStarted/Start';
 import TerminalRequest from './pages/Terminals/TerminalRequest';
 import Merchants from './pages/Merchants/Merchants';
 import AddMerchant from './pages/Merchants/AddMerchant';
+import Merchant from './pages/Merchants/Merchant';
 
 
 const PrivateRoute = ({ children}) => {
@@ -63,7 +64,8 @@ function App() {
 
           {/* Settlement */}
 
-          <Route path='/merchants' element={<PrivateRoute><Merchants /> </PrivateRoute>} />
+          <Route path='/merchants' exact element={<PrivateRoute><Merchants /> </PrivateRoute>} />
+          <Route path='/merchants/:id' element={<PrivateRoute><Merchant /> </PrivateRoute>} />
           <Route path='/add-merchant' element={<PrivateRoute><AddMerchant /> </PrivateRoute>} />
 
           {/* Get started */}

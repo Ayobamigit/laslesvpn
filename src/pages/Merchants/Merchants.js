@@ -117,8 +117,8 @@ const Merchants = () => {
                             <th>phone number</th>
                             {/* <th>amount left</th>
                             <th>status</th>
-                            <th>issued date</th>
-                            <th>action</th> */}
+                            <th>issued date</th> */}
+                            <th>action</th>
                         </tr>
                     </thead>
 
@@ -157,8 +157,8 @@ const Merchants = () => {
                                     <td>{ dob ? moment(new Date(dob)).format('D/MM/YYYY') : 'N/A'}</td>
                                     <td>{phoneNumber}</td>
                                     {/* <td>{amountLeft}</td>
-                                    <td><span className={`${statusClass()}`}>{status}</span></td>
-                                    <td  onClick={() => {navigate(`/terminals/${terminalId}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td> */}
+                                    <td><span className={`${statusClass()}`}>{status}</span></td> */}
+                                    <td  onClick={() => {navigate(`/merchant/${merchantId}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td>
                                 </tr>
                                 )
                             })
