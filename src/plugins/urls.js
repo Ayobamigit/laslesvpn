@@ -38,6 +38,21 @@ export const allTerminals = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminal
 
 export const allterminalTypes = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/getterminaltypes`;
 
+export const getunassignedterminals = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/getunassignedterminals`;
+
+
+//Merchant Services
+export const allMerchants = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/viewallmerchants`;
+
+export const registerMerchant = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/registermerchant`;
+
+export const mapTerminal = `https://c55b-41-58-227-137.ngrok.io/api/v1/agent/assignterminal`;
+
+
+// export const allTerminals = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/viewallterminalbyuser`;
+
+// export const allterminalTypes = `https://4fcc-41-58-227-137.ngrok.io/api/v1/terminals/getterminaltypes`;
+
 
 //Transaction Services
 

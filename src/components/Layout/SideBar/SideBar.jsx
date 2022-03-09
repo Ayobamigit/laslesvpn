@@ -16,6 +16,7 @@ import { ReactComponent as SideWayaWeb } from "../../../assets/icons/side_web.sv
 import { ReactComponent as Logout } from "../../../assets/icons/logout.svg";
 import { ReactComponent as Logo } from "../../../assets/icons/logo.svg";
 import { ReactComponent as Copy } from "../../../assets/icons/copy.svg";
+import {HiUserGroup} from 'react-icons/hi'
 import {NavLink} from 'react-router-dom';
 import Divider from '../../Divider/Divider';
 
@@ -58,6 +59,12 @@ const SideBar = (props) => {
             <ul className={props.title === 'Transactions' ? 'Navigation-active' : 'Navigation'}>
                 <li>
                     <SideTransactions className={props.title === 'Transactions' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/transactions">Transactions</NavLink>
+                </li>
+            </ul>
+
+            <ul className={props.title === 'Merchants' || props.title === 'Add Merchant'? 'Navigation-active' : 'Navigation'}>
+                <li>
+                    <HiUserGroup className={props.title === 'Merchants' || props.title === 'Add Merchant' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/merchants">Merchants</NavLink>
                 </li>
             </ul>
             <ul className={props.title === 'Settlements' ? 'Navigation-active' : 'Navigation'}>

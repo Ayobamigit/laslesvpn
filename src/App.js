@@ -13,19 +13,14 @@ import Settlement from './pages/Settlement/Settlement';
 import ViewSettlement from './pages/Settlement/ViewSettlement';
 import Start from './pages/GettingStarted/Start';
 import TerminalRequest from './pages/Terminals/TerminalRequest';
+import Merchants from './pages/Merchants/Merchants';
+import AddMerchant from './pages/Merchants/AddMerchant';
 
 
-const PrivateRoute = ({ component, ...props }) => {
-  const Component = component
-  return (
-    <Route
-      {...props}
-      render={
-        (routeProps) => localStorage.getItem('userDetails') ? <Component {...routeProps} /> : <Navigate to="/login" />
-      }
-    />
-  )
-}
+const PrivateRoute = ({ children}) => {
+  return localStorage.getItem('userDetails') ? children : <Navigate to="/login" />
+    
+  }
 
 function App() {
   return (
@@ -33,7 +28,7 @@ function App() {
       <Suspense fallback="f">
         <Routes>    
          {/*Checking if logged in  */}
-         <Route path='/' exact element={() => localStorage.getItem('userDetails') ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}/>
+         <Route path='/' exact element={ <PrivateRoute><Dashboard /> </PrivateRoute> }/>
         
         {/* Login */}
 
@@ -48,26 +43,31 @@ function App() {
 
           {/* Terminal Management */}
 
-          <Route path='/terminals' exact element={<Terminal />} />
-          <Route path='/terminal-requests' exact element={<TerminalRequest />} />
-          <Route path='/add-terminal' exact element={<AddTerminal />} />
+          <Route path='/terminals' exact element={ <PrivateRoute><Terminal /> </PrivateRoute> } />
+          <Route path='/terminal-requests' exact element={<PrivateRoute><TerminalRequest /> </PrivateRoute>} />
+          <Route path='/add-terminal' exact element={<PrivateRoute><AddTerminal /> </PrivateRoute>} />
 
           {/* Transactions */}
 
-          <Route path='/transactions' exact element={<Transactions />} />
-          <Route path='/transaction/:id' exact element={<Transaction />} />
+          <Route path='/transactions' exact element={<PrivateRoute><Transactions /> </PrivateRoute>} />
+          <Route path='/transaction/:id' exact element={<PrivateRoute><Transaction /> </PrivateRoute>} />
 
           {/* Disputes */}
 
-          <Route path='/disputes' exact element={<Disputes />} />
+          <Route path='/disputes' exact element={<PrivateRoute><Disputes /> </PrivateRoute>} />
 
           {/* Settlement */}
 
-          <Route path='/settlements' exact element={<Settlement />} />
-          <Route path='/settlement/:id' exact element={<ViewSettlement />} />
+          <Route path='/settlements' element={<PrivateRoute><Settlement /> </PrivateRoute>} />
+          <Route path='/settlement/:id' element={<PrivateRoute><ViewSettlement /> </PrivateRoute>} />
+
+          {/* Settlement */}
+
+          <Route path='/merchants' element={<PrivateRoute><Merchants /> </PrivateRoute>} />
+          <Route path='/add-merchant' element={<PrivateRoute><AddMerchant /> </PrivateRoute>} />
 
           {/* Get started */}
-          <Route path='/get-started' exact element={<Start />} />
+          <Route path='/get-started' exact element={<PrivateRoute><Start /> </PrivateRoute>} />
 
         </Routes>
       </Suspense>

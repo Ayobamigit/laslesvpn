@@ -24,27 +24,27 @@ const AddTerminal = () => {
         partPaymentAmount: '',
         subTotal: 0,
         types: [
-            {
-                id: 1,
-                terminalName: "PAX",
-                terminalCategory: "Android POS Device",
-                quantity: 0,
-                amount: 1000
-            },
-            {
-                id: 2,
-                terminalName: "NEXGO",
-                terminalCategory: "Android POS Device",
-                quantity: 0,
-                amount: 12000
-            },
-            {
-                id: 3,
-                terminalName: "TOPWISE",
-                terminalCategory: "Android POS Device",
-                quantity: 0,
-                amount: 9000
-            },
+            // {
+            //     id: 1,
+            //     terminalName: "PAX",
+            //     terminalCategory: "Android POS Device",
+            //     quantity: 0,
+            //     amount: 1000
+            // },
+            // {
+            //     id: 2,
+            //     terminalName: "NEXGO",
+            //     terminalCategory: "Android POS Device",
+            //     quantity: 0,
+            //     amount: 12000
+            // },
+            // {
+            //     id: 3,
+            //     terminalName: "TOPWISE",
+            //     terminalCategory: "Android POS Device",
+            //     quantity: 0,
+            //     amount: 9000
+            // },
         ],
         terminalTypes: [],
         loading: false
@@ -60,7 +60,7 @@ const AddTerminal = () => {
             if(res.data.respCode === 0){
                 setState(state=>({
                     ...state,
-                    // types: res.data.respBody
+                    types: res.data.respBody
                 }))
             }
         })

@@ -10,23 +10,23 @@ import {VscAdd} from 'react-icons/vsc'
 import { useNavigate } from 'react-router'
 import axios from '../../plugins/axios'
 import { toast, Slide } from "react-toastify"
-import { allTerminals } from '../../plugins/urls'
+import { allMerchants } from '../../plugins/urls'
 import NoResultFound from '../../components/NoResultFound/NoResultFound'
 import moment from "moment"
 
-const TerminalRequest = () => {
+const Merchants = () => {
     const {user} = JSON.parse(localStorage.getItem('userDetails'));
     const navigate = useNavigate()
     
     const [state, setState] = useState({
-        terminalList: [],
+        merchantList: [],
         from:'',
         to:'',
         pageNo:0,
         pageSize: 20,
     })
 
-    const {from, to, pageNo, pageSize, terminalList} = state;
+    const {from, to, pageNo, pageSize, merchantList} = state;
     useEffect(()=>{
         getTerminals()
     },[])
@@ -46,13 +46,13 @@ const TerminalRequest = () => {
 
         axios({
             method: 'post',
-            url: `${allTerminals}`,
+            url: `${allMerchants}`,
             data: reqBody
         }).then(res=>{
             if(res.data.respCode === 0){
                 setState(state=>({
                     ...state,
-                    terminalList: res.data.respBody.content
+                    merchantList: res.data.respBody.content
                 }))
             }
         })
@@ -65,7 +65,7 @@ const TerminalRequest = () => {
     })
     }
   return (
-    <Layout title="Terminals">
+    <Layout title="Merchants">
         <div className="tableHeaders d-flex justify-content-start align-items-center">
             <div className="d-flex justify-content-between filter-contents align-items-center">
                 <div className="d-flex justify-content-start align-items-center width-50">
@@ -93,6 +93,12 @@ const TerminalRequest = () => {
                             Export data
                         </div>
                     </div>
+                    <div className="d-flex justify-content-center align-items-center">
+                        <div className="request-button" onClick={()=>{navigate('/add-merchant')}}>
+                            <VscAdd color={'#fff'} className="mr-5" />
+                            Add Merchant
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,53 +109,56 @@ const TerminalRequest = () => {
                 <Table responsive borderless className="bg-inherit">
                     <thead>
                         <tr style={{backgroundColor: '#F9843533', borderRadius: '5px'}}>
-                            <th>terminal name</th>
-                            <th>terminal cost</th>
-                            <th>amount paid</th>
-                            <th>amount left</th>
+                            <th>#</th>
+                            <th>merchant id</th>
+                            <th>merchant name</th>
+                            <th>email</th>
+                            <th>dob</th>
+                            <th>phone number</th>
+                            {/* <th>amount left</th>
                             <th>status</th>
-                            <th>request date</th>
-                            <th>action</th>
+                            <th>issued date</th>
+                            <th>action</th> */}
                         </tr>
                     </thead>
 
                     <tbody>
 
                     {
-                        terminalList?
-                            terminalList.length === 0 ?
+                        merchantList?
+                            merchantList.length === 0 ?
                             <NoResultFound />
                             :
-                            terminalList.map((terminal, i)=>{
-                                const{terminalId, terminalName, terminalAmount, amountPaid, amountLeft, dateCreated, status} = terminal;
-                                const statusClass = () =>{
-                                    if(status){
-                                        if(status.toLowerCase() === 'activated'){
-                                            return 'tabactive'
-                                        }
-                                        else if(status.toLowerCase() === 'deactivated'){
-                                            return 'tabdanger'
-                                        } 
-                                        else if(status.toLowerCase() === 'faulty'){
-                                            return 'tabdamaged'
-                                        }
-                                        else{
-                                            return 'tabpending'
-                                        }
-                                    }
-                                }
+                            merchantList.map((merchant, i)=>{
+                                const{merchantId, firstname, surname, email, phoneNumber, dob} = merchant;
+                                // const statusClass = () =>{
+                                //     if(status){
+                                //         if(status.toLowerCase() === 'activated'){
+                                //             return 'tabactive'
+                                //         }
+                                //         else if(status.toLowerCase() === 'deactivated'){
+                                //             return 'tabdanger'
+                                //         } 
+                                //         else if(status.toLowerCase() === 'faulty'){
+                                //             return 'tabdamaged'
+                                //         }
+                                //         else{
+                                //             return 'tabpending'
+                                //         }
+                                //     }
+                                // }
 
                                 return(
                                     <tr key={i}>
                                     <td>{i+1}</td>
-                                    <td>{terminalId}</td>
-                                    <td>{terminalName}</td>
-                                    <td>{terminalAmount}</td>
-                                    <td>{amountPaid}</td>
-                                    <td>{amountLeft}</td>
+                                    <td>{merchantId}</td>
+                                    <td>{firstname + ' ' + surname }</td>
+                                    <td>{email}</td>
+                                    <td>{ dob ? moment(new Date(dob)).format('D/MM/YYYY') : 'N/A'}</td>
+                                    <td>{phoneNumber}</td>
+                                    {/* <td>{amountLeft}</td>
                                     <td><span className={`${statusClass()}`}>{status}</span></td>
-                                    <td>{ dateCreated ? moment(new Date(dateCreated)).format('D/MM/YYYY') : 'N/A'}</td>
-                                    <td  onClick={() => {navigate(`/terminals/${terminalId}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td>
+                                    <td  onClick={() => {navigate(`/terminals/${terminalId}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td> */}
                                 </tr>
                                 )
                             })
@@ -207,4 +216,4 @@ const TerminalRequest = () => {
   )
 }
 
-export default TerminalRequest
+export default Merchants
