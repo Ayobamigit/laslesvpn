@@ -42,21 +42,25 @@ export const allterminalTypes = `${baseUrl()}/${secondaryUrl().terminal}/termina
 
 
 //Merchant Services
-export const allMerchants = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/viewallmerchants`;
+export const allMerchants = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/viewallmerchants`;
 
-export const getunassignedterminals = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/getunassignedterminals`;
+export const getunassignedterminals = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/getunassignedterminals`;
 
-export const registerMerchant = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/registermerchant`;
+export const registerMerchant = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/registermerchant`;
 
-export const updateMerchant = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/updatemerchant`;
+export const updateMerchant = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/updatemerchant`;
 
-export const mapTerminal = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/assignterminal`;
+export const mapTerminal = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/assignterminal`;
 
-export const unMapTerminal = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/unassignterminal`;
+export const unMapTerminal = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/unassignterminal`;
 
-export const viewMerchant = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/viewmerchantbyid`;
+export const viewMerchant = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/viewmerchantbyid`;
 
-export const viewMerchantTerminals = `https://60ed-41-58-227-137.ngrok.io/api/v1/agent/getmerchantterminals`;
+export const viewMerchantTerminals = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/getmerchantterminals`;
+
+export const activateMerchant = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/activatemerchant`;
+
+export const deactivateMerchant = `https://ef10-41-58-227-137.ngrok.io/api/v1/agent/deactivatemerchant`;
 
 
 //Transaction Services

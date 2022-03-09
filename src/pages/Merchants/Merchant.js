@@ -2,7 +2,7 @@ import axios from '../../plugins/axios'
 import React, {useEffect, useState} from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import Layout from '../../components/Layout/Layout'
-import { getunassignedterminals, mapTerminal, unMapTerminal, updateMerchant, viewMerchant, viewMerchantTerminals } from '../../plugins/urls'
+import { activateMerchant, deactivateMerchant, getunassignedterminals, mapTerminal, unMapTerminal, updateMerchant, viewMerchant, viewMerchantTerminals } from '../../plugins/urls'
 import { toast, Slide } from "react-toastify";
 import SubmitLoader from '../../components/SubmitLoader/SubmitLoader'
 import { useMatch } from 'react-router';
@@ -33,6 +33,7 @@ const Merchant = () => {
         terminalIds: [],
         unAssignIds:[],
         unAssigned:[],
+        active: false,
         submit: false,
         removeButton: true,
         addButton: true
@@ -40,7 +41,7 @@ const Merchant = () => {
     let itemToBeDeleted = 0
 
 
-    const {removeButton, addButton, states, cities, unAssigned, terminalIds, unAssignIds, submit, address, city, firstname, surname, phoneNumber, dob, email, gender, merchantTerminals, merchantCategoryCode, merchantId, merchantNameAndLocation, merchantState, countryCode, currencyCode, acquiringInstitutionID} = state
+    const {removeButton, addButton, active, states, cities, unAssigned, terminalIds, unAssignIds, submit, address, city, firstname, surname, phoneNumber, dob, email, gender, merchantTerminals, merchantCategoryCode, merchantId, merchantNameAndLocation, merchantState, countryCode, currencyCode, acquiringInstitutionID} = state
 
     const onChange = (e) =>{
         let name = e.target.name;
@@ -134,10 +135,11 @@ const Merchant = () => {
         })
         .then(res=>{
             if(res.data.respCode === 0){
-                const {address, city, firstname, surname, phoneNumber, dob, email, gender, merchantCategoryCode, merchantId, merchantNameAndLocation, countryCode, currencyCode, acquiringInstitutionID} = res.data.respBody
+                const {address, city, active, firstname, surname, phoneNumber, dob, email, gender, merchantCategoryCode, merchantId, merchantNameAndLocation, countryCode, currencyCode, acquiringInstitutionID} = res.data.respBody
 
                 setState(state=>({
                     ...state,
+                    active,
                     address,
                     firstname,
                     surname,
@@ -443,6 +445,98 @@ const Merchant = () => {
         })
         console.log('map')
     }
+
+    const onActivateMerchant = ()=>{
+        setState(state=>({
+            ...state,
+            submit: true
+        }))
+        
+        axios({
+            method: 'post',
+            url:`${activateMerchant}`,
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            data: merchantId
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                setState(state=>({
+                    ...state,
+                    submit: false,
+                    active:true
+                }))
+                toast.success(`Merchant activated successfully`, {
+                    transition: Slide,
+                    hideProgressBar: true,
+                    autoClose: 3000,
+                });
+            }else{
+                setState(state=>({
+                    ...state,
+                    submit: false,
+                }))
+                toast.error(`An error occured`, {
+                    transition: Slide,
+                    hideProgressBar: true,
+                    autoClose: 3000,
+                });
+            }
+            
+        }).catch(err=>{
+            toast.error(`${err.response.data.message}`, {
+                transition: Slide,
+                hideProgressBar: true,
+                autoClose: 3000,
+            });
+        })
+    }
+
+    const onDeactivateMerchant = ()=>{
+        setState(state=>({
+            ...state,
+            submit: true
+        }))
+        axios({
+            method: 'post',
+            url:`${deactivateMerchant}`,
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            data: merchantId
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                setState(state=>({
+                    ...state,
+                    submit: false,
+                    active:false
+                }))
+                toast.success(`Merchant deactivated successfully`, {
+                    transition: Slide,
+                    hideProgressBar: true,
+                    autoClose: 3000,
+                });
+            }else{
+                setState(state=>({
+                    ...state,
+                    submit: false,
+                }))
+                toast.error(`An error occured`, {
+                    transition: Slide,
+                    hideProgressBar: true,
+                    autoClose: 3000,
+                });
+            }
+            
+        }).catch(err=>{
+            toast.error(`${err.response.data.message}`, {
+                transition: Slide,
+                hideProgressBar: true,
+                autoClose: 3000,
+            });
+        })
+    }
+
   return (
     <Layout title = "Merchants">
         <Container fluid>
@@ -726,16 +820,29 @@ const Merchant = () => {
                             
                         </form>
 
-                        <div className="text-end mt-40">
-                    <button className="orange-button" onClick={onUpdateMerchant}>
-                        {
-                            submit ?
-                            <SubmitLoader />
-                            :
-                            'Update Merchant'
-                        }
-                        
-                    </button>
+                        <div className="d-flex justify-content-between mt-40">
+                            <button className="orange-button" onClick={active ? onDeactivateMerchant : onActivateMerchant}>
+                                {
+                                    submit ?
+                                    <SubmitLoader />
+                                    :
+                                    active ?
+                                    'Deactivate Merchant' 
+                                    :
+                                    'Activate Merchant'
+                                    
+                                }
+                                
+                            </button>
+                            <button className="orange-button" onClick={onUpdateMerchant}>
+                                {
+                                    submit ?
+                                    <SubmitLoader />
+                                    :
+                                    'Update Merchant'
+                                }
+                                
+                            </button>
                 </div>
                     </div>
                 </Col>

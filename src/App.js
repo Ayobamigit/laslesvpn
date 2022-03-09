@@ -19,6 +19,7 @@ import Merchant from './pages/Merchants/Merchant';
 
 
 const PrivateRoute = ({ children}) => {
+  // console.log(JSON.parse(localStorage.getItem('userDetails')))
   return localStorage.getItem('userDetails') ? children : <Navigate to="/login" />
     
   }
