@@ -16,6 +16,7 @@ import TerminalRequest from './pages/Terminals/TerminalRequest';
 import Merchants from './pages/Merchants/Merchants';
 import AddMerchant from './pages/Merchants/AddMerchant';
 import Merchant from './pages/Merchants/Merchant';
+import Activity from './pages/Activity/Activity';
 
 
 const PrivateRoute = ({ children}) => {
@@ -57,6 +58,10 @@ function App() {
           {/* Disputes */}
 
           <Route path='/disputes' exact element={<PrivateRoute><Disputes /> </PrivateRoute>} />
+
+          {/* Disputes */}
+
+          <Route path='/activity-log' exact element={<PrivateRoute><Activity /> </PrivateRoute>} />
 
           {/* Settlement */}
 

@@ -68,3 +68,6 @@ export const deactivateMerchant = `https://ef10-41-58-227-137.ngrok.io/api/v1/ag
 export const allTransactions = `https://8ec8-41-58-227-137.ngrok.io/api/v1/transactions/viewalltransactionsbyuser`;
 
 export const viewTransaction = `https://8ec8-41-58-227-137.ngrok.io/api/v1/transactions/viewonetransactionsbyuser`;
+
+//Activity Logs
+export const viewActivity = `https://dbac-196-46-20-21.ngrok.io/api/v1/auditlogs/viewalliserlogs`;

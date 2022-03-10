@@ -94,7 +94,7 @@ const SideBar = (props) => {
             </ul>
             <ul className={props.title === 'Activity Log' ? 'Navigation-active' : 'Navigation'}>
                 <li>
-                    <SideActivities className={props.title === 'Activity Log' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/">Activity Log</NavLink>
+                    <SideActivities className={props.title === 'Activity Log' ? 'activeIcon' : 'sideIcon'} size={20} /><NavLink to ="/activity-log">Activity Log</NavLink>
                 </li>
             </ul>
 
