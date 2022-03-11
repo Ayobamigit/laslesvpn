@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CreateDispute = () => {
+const CreateDispute = (props) => {
   return (
     <form>
 
@@ -10,8 +10,9 @@ const CreateDispute = () => {
             <select 
                 className="input select" 
                 type="text" 
-                name="orgType"
+                name="subject"
                 required
+                onChange={props.onChange}
             >
                 <option>Select Dispute Category</option>
                 
