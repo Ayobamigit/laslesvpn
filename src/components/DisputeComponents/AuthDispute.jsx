@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Row, Col, Table, Container} from 'react-bootstrap'
 import {FiSearch} from 'react-icons/fi'
 import {IoFilterOutline} from 'react-icons/io5'
@@ -9,11 +9,19 @@ import {MdDelete} from 'react-icons/md'
 import AuthCard from './AuthCard'
 import CreateDispute from './CreateDispute'
 import Modal from '../Modal/Modal'
+import NoResultFound from '../NoResultFound/NoResultFound'
+import axios from '../../plugins/axios'
+import { toast, Slide } from "react-toastify"
+import { allAuthDisputes } from '../../plugins/urls'
+import moment from "moment"
 
 const AuthDispute = () => {
     const navigate = useNavigate()
     const[state,setState] = useState({
-        add: false
+        add: false,
+        authDisputes: [],
+        pageNo: 0,
+        pageSize: 20
     })
 
     const showModal = () =>{
@@ -30,7 +38,40 @@ const AuthDispute = () => {
         }    
     }
 
-    const {add} = state
+    const {add, authDisputes, pageNo, pageSize} = state
+
+    const getAllDispute = ()=>{
+        let reqBody = {
+            from:'',
+            to:'',
+            pageNo,
+            pageSize,
+        }
+
+        axios({
+            method: 'post',
+            url: `${allAuthDisputes}`,
+            data: reqBody
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                setState(state=>({
+                    ...state,
+                    authDisputes: res.data.respBody.content
+                }))
+            }
+        })
+        .catch(err=>{
+        toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+          });
+    })
+    }
+
+    useEffect(()=>{
+        getAllDispute()
+    })
     return (
       <>
       <Modal show={add} clicked={showModal} title="Create New Dispute" action="Submit">
@@ -104,6 +145,45 @@ const AuthDispute = () => {
                       </thead>
   
                       <tbody>
+                      {
+                        authDisputes?
+                            authDisputes.length === 0 ?
+                            <NoResultFound />
+                            :
+                            authDisputes.map((dispute, i)=>{
+                                const{terminalId, terminalName, terminalAmount, dateCreated, status} = dispute;
+                                const statusClass = () =>{
+                                    if(status){
+                                        if(status.toLowerCase() === 'resolved'){
+                                            return 'text-sharp-green'
+                                        }
+                                        else if(status.toLowerCase() === 'rejected'){
+                                            return 'text-red'
+                                        } 
+                                        else if(status.toLowerCase() === 'under review'){
+                                            return 'text-yellow'
+                                        }
+                                        else{
+                                            return 'text-yellow'
+                                        }
+                                    }
+                                }
+
+                                return(
+                                    <tr key={i}>
+                                    <td>{terminalId}</td>
+                                    <td>{terminalName}</td>
+                                    <td>{terminalAmount}</td>
+                                    <td>{ dateCreated ? moment(new Date(dateCreated)).format('LLLL') : 'N/A'}</td>\
+                                    <td><span className={`${statusClass()}`}>{status}</span></td>
+                                    <td><span className="tabtransparent" onClick={()=>{navigate('/transaction/1')}}>View More</span><span className="ml-22"><MdDelete size={20} color="#FF4400" /></span></td>
+                                </tr>
+
+                                )
+                            })
+                        :
+                        <NoResultFound />
+                        } 
                           <tr>
                               <td>#193029</td>
                               <td>@richard</td>

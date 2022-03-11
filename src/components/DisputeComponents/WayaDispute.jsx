@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './dispute.scss'
 import { Row, Col, Table, Container } from 'react-bootstrap'
 import {FiSearch} from 'react-icons/fi'
@@ -8,9 +8,55 @@ import {ReactComponent as Check} from '../../assets/icons/checkgreen.svg'
 import {AiFillEye} from 'react-icons/ai'
 import {MdDelete} from 'react-icons/md'
 import WayaCards from './WayaCards'
-
+import { useNavigate } from 'react-router'
+import NoResultFound from '../NoResultFound/NoResultFound'
+import axios from '../../plugins/axios'
+import { toast, Slide } from "react-toastify"
+import { allWayaDisputes } from '../../plugins/urls'
+import moment from "moment"
 
 const WayaDispute = () => {
+    const navigate = useNavigate()
+    const [state, setState] = useState({
+        wayaDisputes: [],
+        pageNo: 0,
+        pageSize: 20
+    })
+
+    const {wayaDisputes, pageNo, pageSize} = state
+
+    const getAllDispute = ()=>{
+        let reqBody = {
+            from:'',
+            to:'',
+            pageNo,
+            pageSize,
+        }
+
+        axios({
+            method: 'post',
+            url: `${allWayaDisputes}`,
+            data: reqBody
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                setState(state=>({
+                    ...state,
+                    wayaDisputes: res.data.respBody.content
+                }))
+            }
+        })
+        .catch(err=>{
+        toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+          });
+    })
+    }
+
+    useEffect(()=>{
+        getAllDispute()
+    })
     return (
       <>
       <div className="tableHeaders d-flex justify-content-start align-items-center">
@@ -75,6 +121,46 @@ const WayaDispute = () => {
                       </thead>
   
                       <tbody>
+                      {
+                        wayaDisputes?
+                            wayaDisputes.length === 0 ?
+                            <NoResultFound />
+                            :
+                            wayaDisputes.map((dispute, i)=>{
+                                const{terminalId, terminalName, terminalAmount, amountPaid, amountLeft, dateCreated, status} = dispute;
+                                const statusClass = () =>{
+                                    if(status){
+                                        if(status.toLowerCase() === 'activated'){
+                                            return 'tabactive'
+                                        }
+                                        else if(status.toLowerCase() === 'deactivated'){
+                                            return 'tabdanger'
+                                        } 
+                                        else if(status.toLowerCase() === 'faulty'){
+                                            return 'tabdamaged'
+                                        }
+                                        else{
+                                            return 'tabpending'
+                                        }
+                                    }
+                                }
+
+                                return(
+                                    <tr key={i}>
+                                    <td>{terminalId}</td>
+                                    <td>{terminalName}</td>
+                                    <td>{terminalAmount}</td>
+                                    <td>{amountPaid}</td>
+                                    <td>{ dateCreated ? moment(new Date(dateCreated)).format('LL') : 'N/A'}</td>
+                                    <td>{amountLeft}</td>
+                                    <td><span className={`${statusClass()}`}>{status}</span></td>
+                                    <td  onClick={() => {navigate(`/terminals/${terminalId}`)}}><span className="actionDanger"><AiFillEye size={20} color="#FF4400" /></span></td>
+                                </tr>
+                                )
+                            })
+                        :
+                        <NoResultFound />
+                    } 
                           <tr>
                               <td><div className="res-button bg-red">Need Response</div></td>
                               <td>Chargeback</td>
