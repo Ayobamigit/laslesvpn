@@ -4,7 +4,7 @@ import AuthContainer from '../../components/AuthComponent/AuthContainer/AuthCont
 import SubmitLoader from '../../components/SubmitLoader/SubmitLoader'
 import { useRef } from "react";
 import axios from '../../plugins/axios';
-import { resend, verify } from '../../plugins/urls';
+import { createWallet, resend, verify } from '../../plugins/urls';
 import { toast, Slide } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 
@@ -58,15 +58,7 @@ const VerifyOtp = (props) => {
                 data: reqBody
             }).then((res) => {
                 if (res.data.status === true) {
-                  setState(state=>({
-                      ...state,
-                      submit: false,
-                      verified: true
-                  }))
-                  toast.success(
-                    `Account Verified, Kindly login`,
-                     { transition: Slide, hideProgressBar: true, autoClose: 3000 } 
-                    )
+                    onCreateWallet()
                 }
               }).catch(err=>{
                 setState(state=>({
@@ -103,6 +95,37 @@ const VerifyOtp = (props) => {
             `OTP Sent, kindly check the email or phone number provided`,
                 { transition: Slide, hideProgressBar: true, autoClose: 3000 } 
             )
+        }).catch((err) => {
+            // const err = JSON.parse(e)
+            toast.error(`${err.response.data.message}`, {
+              transition: Slide,
+              hideProgressBar: true,
+              autoClose: 3000,
+            });
+            // console.log(err.response.data.message)
+          });
+    }
+
+    const onCreateWallet = (id)=>{
+        let reqBody = {
+            userId: id
+        }
+        axios({
+            method: 'post',
+            url:`${createWallet}`,
+            data: reqBody
+        }).then(res=>{
+            if(res.data.status === true){
+                setState(state=>({
+                    ...state,
+                    submit: false,
+                    verified: true
+                }))
+                toast.success(
+                  `Account Verified, Kindly login`,
+                   { transition: Slide, hideProgressBar: true, autoClose: 3000 } 
+                  )
+            }
         }).catch((err) => {
             // const err = JSON.parse(e)
             toast.error(`${err.response.data.message}`, {

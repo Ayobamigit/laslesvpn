@@ -6,6 +6,7 @@ const baseUrl = () => {
         merchant: process.env.REACT_APP_BASE_URL_MERCHANT,
         audit: process.env.REACT_APP_BASE_URL_AUDIT,
         dispute: process.env.REACT_APP_BASE_URL_DISPUTE,
+        wallet: process.env.REACT_APP_BASE_URL_WALLET,
     };
 }
 
@@ -35,6 +36,9 @@ export const verify = `${baseUrl().auth}/auth/verify-otp`;
 //Resend OTP
 export const resend = `${baseUrl().auth}/auth/resend-otp/signup/`;
 
+//Wallet 
+
+export const createWallet = `${baseUrl().wallet}/wallet/create-wallet`;
 
 
 //business types 
