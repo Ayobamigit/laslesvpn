@@ -5,7 +5,7 @@ import {ReactComponent as Back} from '../../assets/icons/back.svg'
 import { AddTerminalContext } from '../../pages/Terminals/AddTerminal'
 
 const Payment = () => {
-    const {state:{fullOrPartPayment, accountToDebit, subTotal}, onChangeStep, onSelectPayment} = useContext(AddTerminalContext)
+    const {state:{fullOrPartPayment, accountToDebit, accountName,subTotal}, onChangeStep, onSelectPayment} = useContext(AddTerminalContext)
   return (
     <div className="font-default address">
         <h4 className="text-darker fs-14 fw-700 cursor-pointer" onClick={()=>onChangeStep('select', 'Continue')}>
@@ -61,7 +61,7 @@ const Payment = () => {
                     <div className="d-flex justify-content-between "> 
                         <div className="currency-grey"> <Home /> </div>
                         <div className="mt-02 ml-22">
-                            <h4 className="text-darker fs-14 fw-700">Richard Daniel</h4>
+                            <h4 className="text-darker fs-14 fw-700">{accountName}</h4>
                             <h4 className="text-grey fs-12">{accountToDebit}</h4>
                         </div>
                     </div>

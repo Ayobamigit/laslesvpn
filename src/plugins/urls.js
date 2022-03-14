@@ -40,6 +40,8 @@ export const resend = `${baseUrl().auth}/auth/resend-otp/signup/`;
 
 export const createWallet = `${baseUrl().wallet}/wallet/create-wallet`;
 
+export const walletDefault = `${baseUrl().wallet}/wallet/default`;
+
 
 //business types 
 export const businessTypesList = `${baseUrl().auth}/business/type/find/all`;

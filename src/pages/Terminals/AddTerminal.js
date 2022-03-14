@@ -6,7 +6,7 @@ import Layout from '../../components/Layout/Layout'
 import Payment from '../../components/TerminalComponents/Payment'
 import SubTotal from '../../components/TerminalComponents/SubTotal'
 import TerminalAddress from '../../components/TerminalComponents/TerminalAddress'
-import { allterminalTypes, requestTerminal } from '../../plugins/urls'
+import { allterminalTypes, requestTerminal, walletDefault } from '../../plugins/urls'
 import { toast, Slide } from "react-toastify"
 import { Navigate, useNavigate } from 'react-router'
 
@@ -14,11 +14,13 @@ export const AddTerminalContext = createContext();
 
 const AddTerminal = () => {
   const {user} = JSON.parse(localStorage.getItem('userDetails'));
+  console.log(user)
     const navigate  = useNavigate();
     const [state, setState] = useState({
         step: 'select',
         buttonValue:'Continue',
-        accountToDebit: '1243353213',
+        accountName:'',
+        accountToDebit: '',
         deliveryAddress: user ? user.address : '5, Ogudu Road, Ojota Lagos',
         fullOrPartPayment:'',
         partPaymentAmount: '',
@@ -61,6 +63,26 @@ const AddTerminal = () => {
                 setState(state=>({
                     ...state,
                     types: res.data.respBody
+                }))
+            }
+        })
+        .catch(err=>{
+            toast.error(`${err.response.data.message}`, {
+                transition: Slide,
+                hideProgressBar: true,
+                autoClose: 3000,
+              });
+        })
+
+        axios({
+            method: 'get',
+            url:`${walletDefault}/${user ? user.id : ''}`
+        }).then(res=>{
+            if(res.data.status === true){
+                setState(state=>({
+                    ...state,
+                    accountToDebit: res.data.data.accountNo,
+                    accountName: res.data.data.acct_name
                 }))
             }
         })
