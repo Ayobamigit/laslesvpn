@@ -94,4 +94,10 @@ export const allAuthDisputes = `${baseUrl().dispute}/auth-notification-dispute/v
 
 export const allOtherDisputes = `${baseUrl().dispute}/othersDispute/viewAllDisputes`;
 
+//Settlement
+export const allSettlement = `https://979f-41-58-248-93.ngrok.io/api/v1/settlement/viewusersettlement`;
+
+export const getSettlementDetails = `https://979f-41-58-248-93.ngrok.io/api/v1/settlement/viewusersettlementbyid`;
+
+
 

@@ -42,7 +42,7 @@ function App() {
 
          {/* Dashboard Management */}
 
-         <Route path='/dashboard' exact element={<Dashboard />} />
+         <Route path='/dashboard' exact element={ <PrivateRoute><Dashboard /> </PrivateRoute> } />
 
           {/* Terminal Management */}
 

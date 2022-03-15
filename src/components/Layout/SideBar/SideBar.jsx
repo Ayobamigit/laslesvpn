@@ -19,9 +19,16 @@ import { ReactComponent as Copy } from "../../../assets/icons/copy.svg";
 import {HiUserGroup} from 'react-icons/hi'
 import {NavLink} from 'react-router-dom';
 import Divider from '../../Divider/Divider';
-
+import {useNavigate } from 'react-router'
 
 const SideBar = (props) => {
+    const navigate = useNavigate()
+    const logout = () => {
+        localStorage.clear();
+        console.log(localStorage)
+        navigate('/')
+        // window.location.href = "/"
+    }
   return (
     <div className="Sidebar">
         <div className="side-padding">
@@ -120,8 +127,8 @@ const SideBar = (props) => {
             </ul>
 
             <ul className='Navigation'>
-                <li>
-                    <Logout className='sideIcon' size={20} /><NavLink to ="/">Log Out</NavLink>
+                <li onClick = {logout}>
+                    <Logout className='sideIcon' size={20} /><NavLink to ="#">Log Out</NavLink>
                 </li>
             </ul>
 

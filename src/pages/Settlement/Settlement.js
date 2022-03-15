@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Layout from '../../components/Layout/Layout'
 import {IoFilterOutline} from 'react-icons/io5'
 import {BiLinkExternal} from 'react-icons/bi'
@@ -8,9 +8,58 @@ import { useNavigate } from 'react-router'
 import Cards from '../../components/Cards/Cards'
 import SettlementCard from '../../components/SettlementComponents/SettlementCard'
 import {ReactComponent as Qr} from '../../assets/icons/qryellow.svg'
+import axios from '../../plugins/axios'
+import { toast, Slide } from "react-toastify"
+import { allSettlement } from '../../plugins/urls'
+import NoResultFound from '../../components/NoResultFound/NoResultFound'
+import moment from "moment"
 
 const Settlement = () => {
+    const {user} = JSON.parse(localStorage.getItem('userDetails'));
     const navigate = useNavigate()
+    
+    const [state, setState] = useState({
+        settlementList: [],
+        from:'',
+        to:'',
+        pageNo:0,
+        pageSize: 20,
+    })
+
+    const {from, to, pageNo, pageSize, settlementList} = state;
+    useEffect(()=>{
+        getSettlement()
+    },[])
+
+    const getSettlement = ()=>{
+        let reqBody = {
+            from,
+            to,
+            pageNo,
+            pageSize,
+            id: user? user.id : ''
+        }
+
+        axios({
+            method: 'post',
+            url: `${allSettlement}`,
+            data: reqBody
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                setState(state=>({
+                    ...state,
+                    settlementList: res.data.respBody.content
+                }))
+            }
+        })
+        .catch(err=>{
+        toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+          });
+    })
+    }
   return (
     <Layout title="Settlements">
         <Container>
@@ -87,33 +136,41 @@ const Settlement = () => {
                     </thead>
 
                     <tbody>
-                        <tr  onClick={()=>navigate('/settlement/1')}>
-                            <td>44aa22f4-fc64-5b</td>
-                            <td>WayaPOS</td>
-                            <td>NGN 2200</td>
-                            <td>NGN 2000</td>
-                            <td>Tuesday, 6 July 2021, 7:30pm</td>
-                            <td className="text-sharp-green">Settled</td>
-                        </tr>
+                    {
+                        settlementList?
+                        settlementList.length === 0 ?
+                            <NoResultFound />
+                            :
+                            settlementList.map((settlement, i)=>{
+                                const{id, referenceID, beneficiary, actualAmount, settledAmount, createdAt, status} = settlement;
+                                const statusClass = () =>{
+                                    if(status){
+                                        if(status.toLowerCase() === 'settled'){
+                                            return 'text-sharp-green'
+                                        }
+                                        else if(status.toLowerCase() === 'failed'){
+                                            return 'text-red'
+                                        } 
+                                        else{
+                                            return 'text-yellow'
+                                        }
+                                    }
+                                }
 
-                        <tr>
-                            <td>44aa22f4-fc64-5b</td>
-                            <td>WayaPOS</td>
-                            <td>NGN 2200</td>
-                            <td>NGN 2000</td>
-                            <td>Tuesday, 6 July 2021, 7:30pm</td>
-                            <td className="text-red">Failed</td>
-                        </tr>
-
-                        <tr>
-                            <td>44aa22f4-fc64-5b</td>
-                            <td>WayaPOS</td>
-                            <td>NGN 2200</td>
-                            <td>NGN 2000</td>
-                            <td>Tuesday, 6 July 2021, 7:30pm</td>
-                            <td className="text-yellow">Pending</td>
-                        </tr>
-                        
+                                return(
+                                    <tr key={i} onClick={()=>navigate(`/settlement/${id}`)}>
+                                    <td>{referenceID ? referenceID : '44aa22f4-fc64-5b'}</td>
+                                    <td>{beneficiary}</td>
+                                    <td>{actualAmount}</td>
+                                    <td>{settledAmount}</td>
+                                    <td>{ createdAt ? moment(new Date(createdAt)).format('D/MM/YYYY') : 'N/A'}</td>
+                                    <td className={statusClass()}>{status}</td>
+                                </tr>
+                                )
+                            })
+                        :
+                        <NoResultFound />
+                    } 
 
                         
                     </tbody>
