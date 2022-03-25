@@ -5,7 +5,7 @@ import {ReactComponent as Check} from '../assets/icons/check-fill.svg'
 const PlanType = (props) => {
     const {plan} = props
   return (
-    <div className='bg-white border-2 border-plan py-12 px-[80px] rounded-xl max-w-sm md:max-w-md'>
+    <div className='bg-white border-2 border-plan py-12 xs:px-8 px-[80px] rounded-xl max-w-sm md:max-w-md'>
     {/* <div className='bg-white border-2 border-default-red py-12 px-[80px] rounded-xl max-w-sm md:max-w-md'> */}
         <div className='text-center mt-14'>
             <Box className='inline' />

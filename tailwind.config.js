@@ -1,4 +1,5 @@
 const colors = require("tailwindcss/colors")
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     "./src/assets/**/*.{jsx,js,css}",
@@ -23,6 +24,11 @@ module.exports = {
       'black': '#000000',
       'grey': '#EEEFF2',
       'plan': '#DDDDDD'
+    },
+
+    screens: {
+      'xs': {'min': '390px', 'max': '640px'},
+      ...defaultTheme.screens,
     },
     extend: {
       fontFamily: {

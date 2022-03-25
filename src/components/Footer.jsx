@@ -3,7 +3,7 @@ import {ReactComponent as Logo} from '../assets/icons/Logo.svg'
 
 const Footer = () => {
   return (
-    <div className='bg-footer-bg pt-16 pb-12 px-36'>
+    <div className='bg-footer-bg pt-16 pb-12 xs:px-10 px-36'>
         <div className="lg:flex pt-32">
             <div className="lg:w-[67rem] mr-2">
                 <Logo />
@@ -17,7 +17,7 @@ const Footer = () => {
                 <p className='text-copyright text-base font-light mt-8'>©2020Lasles<span className='font-medium'>VPN</span></p>
             </div>
             <div className="lg:flex justify-between w-full">
-                <div className="flex flex-col">
+                <div className="flex flex-col xs:mt-10">
                     <h4 className="font-medium text-lg text-primary-font mb-6">Products</h4>
                     <div className="flex flex-col justify-between grow">
                         <p className="text-base font-light text-secondary-font mb-4 cursor-pointer">Download</p>
@@ -30,7 +30,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex flex-col">
-                    <h4 className="font-medium text-lg text-primary-font mb-6">Engage</h4>
+                    <h4 className="font-medium text-lg text-primary-font mb-6 xs:mt-10">Engage</h4>
                     <div className="flex flex-col justify-between grow">
                         <p className="text-base font-light text-secondary-font mb-4 cursor-pointer">LaslesVPN ? </p>
                         <p className="text-base font-light text-secondary-font mb-4 cursor-pointer">FAQ</p>
@@ -42,7 +42,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex flex-col">
-                    <h4 className="font-medium text-lg text-primary-font mb-6">Earn Money</h4>
+                    <h4 className="font-medium text-lg text-primary-font mb-6 xs:mt-10">Earn Money</h4>
                     <div className="flex flex-col justify-between">
                         <p className="text-base font-light text-secondary-font mb-4 cursor-pointer">Affiliate</p>
                         <p className="text-base text-secondary-font font-light mb-4 cursor-pointer">Become Partner</p>

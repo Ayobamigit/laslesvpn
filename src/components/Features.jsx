@@ -5,7 +5,7 @@ import {ReactComponent as Check} from '../assets/icons/check.svg'
 const Features = () => {
   return (
     <div className='bg-white mt-24'>
-        <div className="pt-11 pb-12 px-36 mb-8">
+        <div className="pt-11 pb-12 xs:px-8 px-36 mb-8">
             <div className='grid grid-cols-1 lg:grid-cols-2'>
                 <div className='mt-28 lg:mt-0 hidden md:block'>
                     <User/>

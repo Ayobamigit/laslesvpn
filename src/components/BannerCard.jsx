@@ -5,7 +5,7 @@ import {ReactComponent as Location} from '../assets/icons/location.svg'
 
 const BannerCard = () => {
   return (
-    <div className='bg-white pt-11 px-36 mb-8 mt-10'>
+    <div className='bg-white xs:px-8 pt-11 px-36 mb-8 mt-10'>
         <div className='rounded-lg py-9 px-10 shadow-card'>
             <div className='grid grid-cols-1 lg:grid-cols-3'>
                 <div className='text-center border-b-2 lg:border-b-0 lg:border-r-2  p-5'>
