@@ -1,5 +1,8 @@
 import React from 'react'
 import {ReactComponent as Logo} from '../assets/icons/Logo.svg'
+import Facebook from '../assets/img/facebook.png'
+import Twitter from '../assets/img/twitter.png'
+import Insta from '../assets/img/instagram.png'
 
 const Footer = () => {
   return (
@@ -10,11 +13,13 @@ const Footer = () => {
 
                 <h4 className="text-secondary-font mt-5 font-light leading-8 text-base"><span className='font-medium'>LaslesVPN</span> is a private virtual network that <br /> has unique features and has high security.</h4>
 
-                <div className='mt-8'>
-
+                <div className='mt-8 flex'>
+                    <img src={Facebook} alt="img" />
+                    <img src={Twitter} alt="img"/>
+                    <img src={Insta} alt="img"/>
                 </div>
 
-                <p className='text-copyright text-base font-light mt-8'>©2020Lasles<span className='font-medium'>VPN</span></p>
+                <p className='text-copyright text-base font-light mt-1'>©2020Lasles<span className='font-medium'>VPN</span></p>
             </div>
             <div className="lg:flex justify-between w-full">
                 <div className="flex flex-col xs:mt-10">

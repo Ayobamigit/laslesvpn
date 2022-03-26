@@ -23,7 +23,8 @@ module.exports = {
       'default-red': '#F53838',
       'black': '#000000',
       'grey': '#EEEFF2',
-      'plan': '#DDDDDD'
+      'plan': '#DDDDDD',
+      'control': '#DDE0E4'
     },
 
     screens: {
