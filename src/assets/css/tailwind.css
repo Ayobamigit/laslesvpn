@@ -51,3 +51,11 @@ body{
         width: 100%;
     }
 }
+
+button[disabled]:hover {
+    cursor: not-allowed;
+}
+  
+button[disabled]{
+    opacity: 0.4;
+}

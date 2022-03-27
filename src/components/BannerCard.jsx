@@ -10,7 +10,7 @@ const BannerCard = () => {
             <div className='grid grid-cols-1 lg:grid-cols-3'>
                 <div className='text-center border-b-2 lg:border-b-0 lg:border-r-2  p-5'>
                     <div className='flex justify-center items-center'>
-                        <div className='bg-icon-bg rounded-full h-[55px] w-[55px] p-5 mr-10'>
+                        <div className='bg-icon-bg rounded-full p-5 mr-10'>
                             <User />
                         </div>
                         <div>
@@ -21,7 +21,7 @@ const BannerCard = () => {
                 </div>
                 <div className='text-center border-b-2  lg:border-b-0 lg:border-r-2 border-grey p-5'>
                     <div className='flex justify-center items-center'>
-                        <div className='bg-icon-bg rounded-full h-[55px] w-[55px] p-5 mr-10'>
+                        <div className='bg-icon-bg rounded-full py-5 px-6 mr-10'>
                             <Location />
                         </div>
                         <div>
@@ -32,7 +32,7 @@ const BannerCard = () => {
                 </div>
                 <div className='text-center p-5'>
                     <div className='flex justify-center items-center'>
-                        <div className='bg-icon-bg rounded-full h-[55px] w-[55px] p-5 mr-10'>
+                        <div className='bg-icon-bg rounded-full p-5 mr-10'>
                             <Server />
                         </div>
                         <div>

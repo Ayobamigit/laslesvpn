@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {ReactComponent as Logo} from '../assets/icons/Logo.svg'
+import { LandingPageContext } from '../pages/LandingPage'
 
 const Nav = () => {
+    const {showModal, state:{login}} = useContext(LandingPageContext)
   return (
     <div className='pt-11 xs:px-8 px-36 w-full'>
         <nav className="max-w-full w-full lg:max-w-full md:max-w-4xl flex flex-row justify-between mb-2">
@@ -30,9 +32,20 @@ const Nav = () => {
                 </div>
                 
             </div>
-            <div className="xs:hidden flex items-center justify-end basis-2/5">
-                <button className="border-none text-primary-font text-base mr-8 font-medium">Sign in</button>
-                <button className="px-11 py-3 bg-transparent border border-bright-red rounded-3xl font-medium text-bright-red text-base">Sign up</button>
+            <div className="block md:flex items-center justify-end basis-2/5">
+                {
+                    !login ?
+                    <button className="block ml-10 md:inline border-none text-primary-font text-base mr-8 font-medium" onClick={()=>showModal('sign-in')}>Sign in</button>
+                    :
+                    <button className="block md:inline border-none text-primary-font text-base mr-8 font-medium" onClick={()=>showModal('sign-in')}>Sign out</button>
+
+                }
+                {
+                    !login ?
+                    <button className="px-11 py-3 bg-transparent border border-bright-red rounded-3xl mt-4 md:mt-0 font-medium text-bright-red text-base" onClick={()=>showModal('sign-up')}>Sign up</button>
+                    :
+                    null
+                }
             </div>
         </nav>
         
