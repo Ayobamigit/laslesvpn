@@ -3,7 +3,7 @@ import {ReactComponent as Logo} from '../assets/icons/Logo.svg'
 import { LandingPageContext } from '../pages/LandingPage'
 
 const Nav = () => {
-    const {showModal, state:{login}} = useContext(LandingPageContext)
+    const {showModal, signOut, state:{login}} = useContext(LandingPageContext)
   return (
     <div className='pt-11 xs:px-8 px-36 w-full'>
         <nav className="max-w-full w-full lg:max-w-full md:max-w-4xl flex flex-row justify-between mb-2">
@@ -37,7 +37,7 @@ const Nav = () => {
                     !login ?
                     <button className="block ml-10 md:inline border-none text-primary-font text-base mr-8 font-medium" onClick={()=>showModal('sign-in')}>Sign in</button>
                     :
-                    <button className="block md:inline border-none text-primary-font text-base mr-8 font-medium" onClick={()=>showModal('sign-in')}>Sign out</button>
+                    <button className="block md:inline border-none text-primary-font text-base mr-8 font-medium" onClick={signOut}>Sign out</button>
 
                 }
                 {

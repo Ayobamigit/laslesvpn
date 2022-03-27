@@ -20,7 +20,7 @@ const TestimonialItem = (props) => {
         </div>
       </div>
 
-      <div className='mt-4 min-h-[6rem] lg:max-h-24'>
+      <div className='mt-4 min-h-[6rem]'>
         <p className='text-base text-primary-font font-light leading-7'>
         {testimonials ?  testimonials.comment :''}
         </p>

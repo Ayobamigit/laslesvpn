@@ -116,6 +116,8 @@ const LandingPage = () => {
         setState(state=>({
         ...state,
         submit: false,
+        email:'',
+        password:'',
         add: false
       }))
       }
@@ -123,6 +125,8 @@ const LandingPage = () => {
     }).catch(err => {
       setState(state=>({
           ...state, 
+          email:'',
+          password:'',
           submit: false,
           add: false
       }))
@@ -165,6 +169,8 @@ const LandingPage = () => {
         setState(state=>({
         ...state,
         submit: false,
+        email:'',
+        password:'',
         login: true,
         add: false
       }))
@@ -174,6 +180,8 @@ const LandingPage = () => {
       setState(state=>({
           ...state, 
           submit: false,
+          email:'',
+          password:'',
           add: false
       }))
       Swal.fire({
@@ -184,10 +192,18 @@ const LandingPage = () => {
       })
   });
   }
+
+  const signOut = () =>{
+    setState(state=>({
+      ...state,
+      login: false
+    }))
+  }
   return (
       <LandingPageContext.Provider value={{
         onChange,
         showModal,
+        signOut,
         state
       }}>
       <Modal 
@@ -199,7 +215,7 @@ const LandingPage = () => {
         loading={submit} 
         disabled={disabled}
       >
-        <SignUp onChange={onChange} error={displayError}/>
+        <SignUp onChange={onChange} error={displayError} email={email} password={password}/>
       </Modal>
         <Banner />
         <BannerCard />

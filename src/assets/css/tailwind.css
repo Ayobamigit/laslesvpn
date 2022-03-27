@@ -38,13 +38,27 @@ body{
     width: calc(100% / 4);
 }
 
-@media (max-width: 390px) {
+@media (max-width: 800px) {
     .carousel-content.show-2 > * {
         width: 100%;
     }
     
     .carousel-content.show-3 > * {
         width: 100%;
+    }
+    
+    .carousel-content.show-4 > * {
+        width: 100%;
+    }
+}
+
+@media  (min-width: 800px) and (max-width: 1070px) {
+    .carousel-content.show-2 > * {
+        width: 100%;
+    }
+    
+    .carousel-content.show-3 > * {
+        width: 50%;
     }
     
     .carousel-content.show-4 > * {

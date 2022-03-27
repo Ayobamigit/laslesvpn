@@ -8,6 +8,7 @@ const SignUp = (props) => {
             <input 
                 className='block mt-2 h-11 w-full py-2 px-4 text-sm font-light text-primary-font bg-white rounded-lg border border-grey focus:outline-none'
                 type="email"
+                value={props.email}
                 name="email"
                 onChange={props.onChange}
             />
@@ -19,6 +20,7 @@ const SignUp = (props) => {
             <input 
                 className='block mt-2 h-11 w-full py-2 px-4 text-sm font-light text-primary-font bg-white rounded-lg border border-grey focus:outline-none'
                 type="password"
+                value={props.password}
                 name="password"
                 onChange={props.onChange}
             />
