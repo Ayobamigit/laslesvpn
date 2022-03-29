@@ -14,7 +14,9 @@ const CreateDispute = (props) => {
                 required
                 onChange={props.onChange}
             >
-                <option>Select Dispute Category</option>
+                <option valule="">Select Dispute Category</option>
+                <option value = "Auth and Notification">Auth and Notification Dispute</option>
+                <option value = "Other Dispute">Other Dispute</option>
                 
             </select>
         </div>
@@ -26,9 +28,25 @@ const CreateDispute = (props) => {
             <textarea 
                 className="input textarea" 
                 type="text-area" 
-                name="orgName"
+                name="description"
                 required
+                onChange={props.onChange}
             ></textarea>
+        </div>
+    </div>
+
+    <div className="input-div mt-20">
+        <label className="text-darker fs-14">Attach file</label>
+        <div className="input-container">
+            <input 
+                type="file"
+                className="input" 
+                id="attachment"
+                required
+                placeholder="File"
+                name="attachment"
+                onChange={props.onFileChange}
+            />
         </div>
     </div>
     </form>

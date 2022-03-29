@@ -16,6 +16,7 @@ import { allWayaDisputes } from '../../plugins/urls'
 import moment from "moment"
 
 const WayaDispute = () => {
+    const {user} = JSON.parse(localStorage.getItem('userDetails'));
     const navigate = useNavigate()
     const [state, setState] = useState({
         wayaDisputes: [],
@@ -31,6 +32,7 @@ const WayaDispute = () => {
             to:'',
             pageNo,
             pageSize,
+            id: user? user.id : ''
         }
 
         axios({
@@ -56,7 +58,7 @@ const WayaDispute = () => {
 
     useEffect(()=>{
         getAllDispute()
-    })
+    },[])
     return (
       <>
       <div className="tableHeaders d-flex justify-content-start align-items-center">
@@ -161,7 +163,7 @@ const WayaDispute = () => {
                         :
                         <NoResultFound />
                     } 
-                          <tr>
+                          {/* <tr>
                               <td><div className="res-button bg-red">Need Response</div></td>
                               <td>Chargeback</td>
                               <td>NGN100 on Jul. 12, 2021</td>
@@ -212,7 +214,7 @@ const WayaDispute = () => {
                               <td>In A Day</td>
                               <td><span className="tabactive"><Check className="mr-02" />Resolve</span> </td>
   
-                          </tr>
+                          </tr> */}
                       </tbody>
                   </Table>
               </div>

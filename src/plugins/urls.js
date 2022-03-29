@@ -92,12 +92,16 @@ export const allWayaDisputes = `${baseUrl().dispute}/wayaposDisputes/viewAllDisp
 
 export const allAuthDisputes = `${baseUrl().dispute}/auth-notification-dispute/viewAllDisputes`;
 
+export const createAuthDisputes = `${baseUrl().dispute}/auth-notification-dispute/createDispute`;
+
 export const allOtherDisputes = `${baseUrl().dispute}/othersDispute/viewAllDisputes`;
 
-//Settlement
-export const allSettlement = `https://979f-41-58-248-93.ngrok.io/api/v1/settlement/viewusersettlement`;
+export const createOtherDispute = `${baseUrl().dispute}/othersDispute/createDispute`;
 
-export const getSettlementDetails = `https://979f-41-58-248-93.ngrok.io/api/v1/settlement/viewusersettlementbyid`;
+//Settlement
+export const allSettlement = `${baseUrl().dispute}/api/v1/settlement/viewusersettlement`;
+
+export const getSettlementDetails = `${baseUrl().dispute}/api/v1/settlement/viewusersettlementbyid`;
 
 
 

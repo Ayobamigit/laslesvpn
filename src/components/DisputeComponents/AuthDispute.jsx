@@ -12,18 +12,24 @@ import Modal from '../Modal/Modal'
 import NoResultFound from '../NoResultFound/NoResultFound'
 import axios from '../../plugins/axios'
 import { toast, Slide } from "react-toastify"
-import { allAuthDisputes } from '../../plugins/urls'
+import { allAuthDisputes, createAuthDisputes } from '../../plugins/urls'
 import moment from "moment"
 
 const AuthDispute = () => {
+    const {user} = JSON.parse(localStorage.getItem('userDetails'));
     const navigate = useNavigate()
     const[state,setState] = useState({
         add: false,
         authDisputes: [],
         pageNo: 0,
-        pageSize: 20
+        pageSize: 20,
+        subject: '',
+        description:'',
+        attachment:'',
+        submit: false
     })
 
+    const {subject, description, submit, attachment, add, authDisputes, pageNo, pageSize} = state
     const showModal = () =>{
         if(!add){
             setState(state=>({
@@ -38,7 +44,27 @@ const AuthDispute = () => {
         }    
     }
 
-    const {add, authDisputes, pageNo, pageSize} = state
+    const onChange = (e) =>{
+        setState(state=>({
+            ...state,
+           [ e.target.name]: e.target.value
+        }))
+    }
+
+    const onFileChange = (event) => {
+        let file = event.target.files[0];
+        let nameOfField = event.target.name;
+        let reader = new FileReader();
+        if (file) {
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                setState({
+                    ...state,
+                    [nameOfField]: e.target.result
+                })
+            }
+        }
+    }
 
     const getAllDispute = ()=>{
         let reqBody = {
@@ -46,6 +72,7 @@ const AuthDispute = () => {
             to:'',
             pageNo,
             pageSize,
+            id: user? user.id : ''
         }
 
         axios({
@@ -71,11 +98,50 @@ const AuthDispute = () => {
 
     useEffect(()=>{
         getAllDispute()
-    })
+    },[])
+
+    const onCreateDispute = ()=>{
+        setState(state=>({
+            ...state,
+            submit: true
+        }))
+        axios({
+            method: 'post',
+            url:`${createAuthDisputes}`,
+            params: {
+                category: subject,
+                description,
+                attachment
+            }
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                setState(state=>({
+                    ...state,
+                    submit: false,
+                    add: false
+                }))
+                toast.success(
+                    `Dispute raised successfully`,
+                     { transition: Slide, hideProgressBar: true, autoClose: 3000 } 
+                )
+                getAllDispute()
+            }
+        }).catch(err=>{
+            setState(state=>({
+                ...state,
+                submit: false,
+            }))
+            toast.error(`${err.response.data.message}`, {
+                transition: Slide,
+                hideProgressBar: true,
+                autoClose: 3000,
+            });
+        })
+    }
     return (
       <>
-      <Modal show={add} clicked={showModal} title="Create New Dispute" action="Submit">
-        <CreateDispute />
+      <Modal show={add} clicked={showModal} loading={submit} submit={onCreateDispute} title="Create New Dispute" action="Submit">
+        <CreateDispute onChange = {onChange} onFileChange={onFileChange} />
       </Modal>
       <div className="tableHeaders d-flex justify-content-start align-items-center">
           <div className="d-flex justify-content-between filter-contents align-items-center">
@@ -151,7 +217,7 @@ const AuthDispute = () => {
                             <NoResultFound />
                             :
                             authDisputes.map((dispute, i)=>{
-                                const{terminalId, terminalName, terminalAmount, dateCreated, status} = dispute;
+                                const{ticketID, username, subject, initiationDate, status} = dispute;
                                 const statusClass = () =>{
                                     if(status){
                                         if(status.toLowerCase() === 'resolved'){
@@ -171,10 +237,10 @@ const AuthDispute = () => {
 
                                 return(
                                     <tr key={i}>
-                                    <td>{terminalId}</td>
-                                    <td>{terminalName}</td>
-                                    <td>{terminalAmount}</td>
-                                    <td>{ dateCreated ? moment(new Date(dateCreated)).format('LLLL') : 'N/A'}</td>\
+                                    <td>{ticketID ? ticketID : 'N/A'}</td>
+                                    <td>{username ? username : 'n/a'}</td>
+                                    <td>{subject ? subject : 'N/A'}</td>
+                                    <td>{ initiationDate ? moment(new Date(initiationDate)).format('LLLL') : 'N/A'}</td>
                                     <td><span className={`${statusClass()}`}>{status}</span></td>
                                     <td><span className="tabtransparent" onClick={()=>{navigate('/transaction/1')}}>View More</span><span className="ml-22"><MdDelete size={20} color="#FF4400" /></span></td>
                                 </tr>
@@ -184,7 +250,7 @@ const AuthDispute = () => {
                         :
                         <NoResultFound />
                         } 
-                          <tr>
+                          {/* <tr>
                               <td>#193029</td>
                               <td>@richard</td>
                               <td>SMS Notifications</td>
@@ -209,7 +275,7 @@ const AuthDispute = () => {
                               <td>Tuesday, 6 July 2021, 7:30pm</td>
                               <td className="text-yellow">Under Review</td>
                               <td><span className="tabtransparent" onClick={()=>{navigate('/transaction/1')}}>View More</span><span className="ml-22"><MdDelete size={20} color="#FF4400" /></span></td>
-                          </tr>
+                          </tr> */}
                           
   
                           
