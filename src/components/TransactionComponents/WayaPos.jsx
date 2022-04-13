@@ -8,7 +8,7 @@ import TransactionCard from '../Cards/TransactionCard'
 import {useNavigate } from 'react-router'
 import axios from '../../plugins/axios'
 import { toast, Slide } from "react-toastify"
-import { allTransactions } from '../../plugins/urls'
+import { allTransactions, revenueStats, transactionStats } from '../../plugins/urls'
 import NoResultFound from '../NoResultFound/NoResultFound'
 import moment from "moment"
 
@@ -23,12 +23,20 @@ const WayaPos = () => {
         to:'',
         pageNo:0,
         pageSize: 20,
+        refunded:'',
+        failed:'',
+        abandoned:'',
+        successful:'',
+        gross_revenue:'',
+        net_revenue:''
     })
 
-    const {from, to, pageNo, pageSize, transactions} = state;
+    const {from, to, pageNo, pageSize, transactions, failed, refunded, abandoned, successful, net_revenue, gross_revenue} = state;
 
     useEffect(()=>{
         getTransactions();
+        getTransactionsStats();
+        getRevenueStats()
     }, [])
 
     const getTransactions = () =>{
@@ -53,6 +61,56 @@ const WayaPos = () => {
                 setState(state=>({
                     ...state,
                     transactions: res.data.respBody.content
+                }))
+            }
+        })
+        .catch(err=>{
+            toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+            })
+        })
+    }
+
+    const getTransactionsStats = () =>{
+
+        axios({
+            method: 'post',
+            url: `${transactionStats}`
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                const {failed, refunded, abandoned, successful} = res.data.respBody
+                setState(state=>({
+                    ...state,
+                    failed,
+                    refunded,
+                    abandoned,
+                    successful
+                }))
+            }
+        })
+        .catch(err=>{
+            toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+            })
+        })
+    }
+
+    const getRevenueStats = () =>{
+
+        axios({
+            method: 'post',
+            url: `${revenueStats}`
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                const {gross_revenue, net_revenue} = res.data.respBody
+                setState(state=>({
+                    ...state,
+                    gross_revenue,
+                    net_revenue
                 }))
             }
         })
@@ -104,13 +162,13 @@ const WayaPos = () => {
         <Container fluid>
             <Row className="mt-40">
                 <Col>
-                    <Cards cardTitle="Gross Revenue" value="NGN 700,304.00" color="text-orange" textColor="text-darker"/>
+                    <Cards cardTitle="Gross Revenue" value={gross_revenue} color="text-orange" textColor="text-darker"/>
                 </Col>
                 <Col>
-                    <Cards cardTitle="Net Revenue" value="NGN 700,304.00" color="text-orange" textColor="text-darker"/>
+                    <Cards cardTitle="Net Revenue" value={net_revenue} color="text-orange" textColor="text-darker"/>
                 </Col>
                 <Col>
-                    <TransactionCard />
+                    <TransactionCard failed={failed} refunded={refunded} abandoned={abandoned} successful={successful} />
                 </Col>
             </Row>
 

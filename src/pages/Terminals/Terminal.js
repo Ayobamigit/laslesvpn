@@ -10,7 +10,7 @@ import {VscAdd} from 'react-icons/vsc'
 import { useNavigate } from 'react-router'
 import axios from '../../plugins/axios'
 import { toast, Slide } from "react-toastify"
-import { allTerminals } from '../../plugins/urls'
+import { allTerminals, terminalStats } from '../../plugins/urls'
 import NoResultFound from '../../components/NoResultFound/NoResultFound'
 import moment from "moment"
 
@@ -24,11 +24,16 @@ const Terminal = () => {
         to:'',
         pageNo:0,
         pageSize: 20,
+        activeTerminals:'',
+        damagedTerminals:'',
+        suspendedTerminals:'',
+        totalTerminals:''
     })
 
-    const {from, to, pageNo, pageSize, terminalList} = state;
+    const {from, to, pageNo, pageSize, terminalList,activeTerminals, damagedTerminals, suspendedTerminals, totalTerminals} = state;
     useEffect(()=>{
         getTerminals()
+        getTerminalStats()
     },[])
 
     const getTerminals = ()=>{
@@ -53,6 +58,32 @@ const Terminal = () => {
                 setState(state=>({
                     ...state,
                     terminalList: res.data.respBody.content
+                }))
+            }
+        })
+        .catch(err=>{
+        toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+          });
+    })
+    }
+
+    const getTerminalStats = ()=>{
+
+        axios({
+            method: 'get',
+            url: `${terminalStats}`,
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                const {activeTerminals, damagedTerminals, suspendedTerminals, totalTerminals} = res.data.respBody
+                setState(state=>({
+                    ...state,
+                    activeTerminals,
+                    suspendedTerminals,
+                    totalTerminals,
+                    damagedTerminals
                 }))
             }
         })
@@ -111,16 +142,16 @@ const Terminal = () => {
         <Container fluid>
             <Row className="mt-40">
                 <Col>
-                    <Cards cardTitle="Total Issued Terminal" value="3" color="text-darker" textColor="text-darker"/>
+                    <Cards cardTitle="Total Issued Terminal" value={totalTerminals} color="text-darker" textColor="text-darker"/>
                 </Col>
                 <Col>
-                    <Cards cardTitle="Total Active Terminals" value="1" color="text-sharp-green" textColor="text-sharp-green"/>
+                    <Cards cardTitle="Total Active Terminals" value={activeTerminals} color="text-sharp-green" textColor="text-sharp-green"/>
                 </Col>
                 <Col>
-                    <Cards cardTitle="Total Damaged Terminals" value="1" color="text-semi-dark" textColor="text-semi-dark"/>
+                    <Cards cardTitle="Total Damaged Terminals" value={damagedTerminals}color="text-semi-dark" textColor="text-semi-dark"/>
                 </Col>
                 <Col>
-                    <Cards cardTitle="Total Suspended Terminals" value="1" color="text-red"/>
+                    <Cards cardTitle="Total Suspended Terminals" value={suspendedTerminals} color="text-red"/>
                 </Col>
             </Row>
 
@@ -167,7 +198,7 @@ const Terminal = () => {
 
                                 return(
                                     <tr key={i}>
-                                    <td>{i+1}</td>
+                                    {/* <td>{i+1}</td> */}
                                     <td>{terminalId}</td>
                                     <td>{terminalName}</td>
                                     <td>{terminalAmount}</td>

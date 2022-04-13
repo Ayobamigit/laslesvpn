@@ -10,7 +10,7 @@ import SettlementCard from '../../components/SettlementComponents/SettlementCard
 import {ReactComponent as Qr} from '../../assets/icons/qryellow.svg'
 import axios from '../../plugins/axios'
 import { toast, Slide } from "react-toastify"
-import { allSettlement } from '../../plugins/urls'
+import { allSettlement, settlementStats } from '../../plugins/urls'
 import NoResultFound from '../../components/NoResultFound/NoResultFound'
 import moment from "moment"
 
@@ -24,11 +24,15 @@ const Settlement = () => {
         to:'',
         pageNo:0,
         pageSize: 20,
+        settled:'',
+        failed:'',
+        refunded:''
     })
 
-    const {from, to, pageNo, pageSize, settlementList} = state;
+    const {from, to, pageNo, pageSize, settlementList, settled, failed, refunded} = state;
     useEffect(()=>{
-        getSettlement()
+        getSettlement();
+        getSettlementStats()
     },[])
 
     const getSettlement = ()=>{
@@ -59,6 +63,31 @@ const Settlement = () => {
             autoClose: 3000,
           });
     })
+    }
+
+    const getSettlementStats = () =>{
+
+        axios({
+            method: 'post',
+            url: `${settlementStats}`
+        }).then(res=>{
+            if(res.data.respCode === 0){
+                const {failed, refunded, settled} = res.data.respBody
+                setState(state=>({
+                    ...state,
+                    failed,
+                    refunded,
+                    settled
+                }))
+            }
+        })
+        .catch(err=>{
+            toast.error(`${err.response.data.message}`, {
+            transition: Slide,
+            hideProgressBar: true,
+            autoClose: 3000,
+            })
+        })
     }
   return (
     <Layout title="Settlements">
@@ -118,7 +147,7 @@ const Settlement = () => {
                     <Cards cardTitle="Next Settlement" value="NGN 700,304.00" date="Settled on 06 July, 2021" color="text-orange" textColor="text-darker"/>
                 </Col>
                 <Col>
-                    <SettlementCard />
+                    <SettlementCard settled={settled} refunded={refunded} failed={failed}/>
                 </Col>
             </Row>
 

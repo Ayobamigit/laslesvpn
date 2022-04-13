@@ -54,6 +54,9 @@ export const allTerminals = `${baseUrl().terminal}/terminals/viewallterminalbyus
 
 export const allterminalTypes = `${baseUrl().terminal}/terminals/getterminaltypes`;
 
+export const terminalStats = `${baseUrl().terminal}/terminals`;
+
+
 
 
 //Merchant Services
@@ -84,6 +87,11 @@ export const allTransactions = `${baseUrl().transactions}/transactions/viewalltr
 
 export const viewTransaction = `${baseUrl().transactions}/transactions/viewonetransactionsbyuser`;
 
+export const transactionStats = `${baseUrl().transactions}/transactions/transactioncount`;
+
+export const revenueStats = `${baseUrl().dispute}/api/v1/settlement/getTransactionStats`;
+
+
 //Activity Logs
 export const viewActivity = `${baseUrl().audit}/auditlogs/viewalliserlogs`;
 
@@ -102,6 +110,8 @@ export const createOtherDispute = `${baseUrl().dispute}/othersDispute/createDisp
 export const allSettlement = `${baseUrl().dispute}/api/v1/settlement/viewusersettlement`;
 
 export const getSettlementDetails = `${baseUrl().dispute}/api/v1/settlement/viewusersettlementbyid`;
+
+export const settlementStats = `${baseUrl().dispute}/api/v1/settlement/getSettlementStats`;
 
 
 
